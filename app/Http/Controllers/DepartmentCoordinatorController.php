@@ -31,15 +31,22 @@ class DepartmentCoordinatorController extends Controller
         return back()->with('success', 'Application has been accepted and forwarded to the College Coordinator.');
     }
 
-    public function reject($id)
+public function reject(Request $request, $id)
 {
+    // ✅ Validate remarks input
+    $request->validate([
+        'remarks' => 'required|string|max:1000',
+    ]);
+
+    // ✅ Update the application with remarks and rejection status
     $application = ApplicationForm::findOrFail($id);
     $application->status = 'Rejected by Department Coordinator';
+    $application->remarks = $request->remarks;
     $application->save();
 
- 
-    $user = User::where('id', $application->user_id)->first();
-    if ($user) {
+    // ✅ Get user and send rejection email
+    $user = User::find($application->user_id);
+    if ($user && $user->email) {
         Mail::to($user->email)->send(new ApplicationRejected($application));
     }
 

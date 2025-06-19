@@ -55,14 +55,78 @@
                
                 <div class="row mt-3 justify-content-center">
                     <div class="col-md-3 text-center print-photo-box">
+                        
                         <div id="preview-box" style="width: 200px; height: 200px; border: 1px solid #000; display: flex; align-items: center; justify-content: center; overflow: hidden; margin: auto;">
                             <img id="image-preview" src="#" alt="Image Preview" style="display: none; max-width: 100%; max-height: 100%;" />
+                         1x1 pic    <br>
+                          scan pix not accepted
                         </div>
                         <input type="file" name="profile_image" class="form-control-file mt-2" accept="image/*" required onchange="previewImage(event)">
                         <div id="filename_profile_image" style="margin-top: 5px; display: none;"></div> 
                         <button type="button" class="btn btn-danger btn-sm clearBtn mt-2" data-field="profile_image" style="display:none;">Clear</button>
                     </div>
                 </div>
+                  @php
+                $fields = [
+                    'original_school_credentials' => 'Original School Credentials',
+                    'certificate_of_employment' => 'Certificate of Employment',
+                    'nbi_barangay_clearance' => 'NBI/Barangay Clearance',
+                    'recommendation_letter' => 'Recommendation Letter',
+                    'proficiency_certificate' => 'Proficiency Certificate'
+                ];
+            @endphp
+            
+            <form id="uploadForm" method="POST" action="{{ route('requirement.upload') }}" enctype="multipart/form-data">
+                @csrf
+                <div class="row">
+                    @foreach($fields as $name => $label)
+                        <div class="col-md-6 mb-4">
+                            <div class="card shadow-sm border rounded-3">
+                                <div class="card-body">
+                                    <label for="{{ $name }}" class="form-label"><strong>{{ $label }}</strong></label>
+                                    <input 
+                                        type="file" 
+                                        name="{{ $name }}" 
+                                        id="{{ $name }}" 
+                                        data-field="{{ $name }}"
+                                        class="form-control fileInput"
+                                        accept=".jpg,.jpeg,.png"
+                                    >
+            
+                                    <div class="mt-3 text-center">
+                                        <img 
+                                            id="preview_{{ $name }}" 
+                                            class="previewImage img-fluid rounded clickable-image" 
+                                            src="" 
+                                            style="display:none; max-height: 160px; cursor: pointer;"
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#imageModal"
+                                        >
+                                        <div id="filename_{{ $name }}" class="text-muted mt-2" style="display:none;"></div>
+                                        <button type="button" class="btn btn-outline-danger btn-sm mt-2 clearBtn" data-field="{{ $name }}" style="display:none;">Clear</button>
+                                    </div>
+            
+                                    @error($name)
+                                        <div class="text-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </form>
+            
+            <!-- Modal for image preview -->
+            <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                  <div class="modal-body text-center">
+                    <img id="modalImage" src="" class="img-fluid rounded" style="max-height: 90vh;">
+                  </div>    
+                </div>
+              </div>
+            </div>
+            
                 
                 
             <h4>Please type or clearly print your answers to all questions.  Provide complete and detailed information required by the questions.  All the declarations that you make are under oath.  Discovery of any false claim in this application form will disqualify you from participating in the program.</h4>
@@ -464,67 +528,7 @@
 
 
           
-                @php
-                $fields = [
-                    'original_school_credentials' => 'Original School Credentials',
-                    'certificate_of_employment' => 'Certificate of Employment',
-                    'nbi_barangay_clearance' => 'NBI/Barangay Clearance',
-                    'recommendation_letter' => 'Recommendation Letter',
-                    'proficiency_certificate' => 'Proficiency Certificate'
-                ];
-            @endphp
-            
-            <form id="uploadForm" method="POST" action="{{ route('requirement.upload') }}" enctype="multipart/form-data">
-                @csrf
-                <div class="row">
-                    @foreach($fields as $name => $label)
-                        <div class="col-md-6 mb-4">
-                            <div class="card shadow-sm border rounded-3">
-                                <div class="card-body">
-                                    <label for="{{ $name }}" class="form-label"><strong>{{ $label }}</strong></label>
-                                    <input 
-                                        type="file" 
-                                        name="{{ $name }}" 
-                                        id="{{ $name }}" 
-                                        data-field="{{ $name }}"
-                                        class="form-control fileInput"
-                                        accept=".jpg,.jpeg,.png"
-                                    >
-            
-                                    <div class="mt-3 text-center">
-                                        <img 
-                                            id="preview_{{ $name }}" 
-                                            class="previewImage img-fluid rounded clickable-image" 
-                                            src="" 
-                                            style="display:none; max-height: 160px; cursor: pointer;"
-                                            data-bs-toggle="modal" 
-                                            data-bs-target="#imageModal"
-                                        >
-                                        <div id="filename_{{ $name }}" class="text-muted mt-2" style="display:none;"></div>
-                                        <button type="button" class="btn btn-outline-danger btn-sm mt-2 clearBtn" data-field="{{ $name }}" style="display:none;">Clear</button>
-                                    </div>
-            
-                                    @error($name)
-                                        <div class="text-danger mt-2">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </form>
-            
-            <!-- Modal for image preview -->
-            <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                  <div class="modal-body text-center">
-                    <img id="modalImage" src="" class="img-fluid rounded" style="max-height: 90vh;">
-                  </div>
-                </div>
-              </div>
-            </div>
-            
+              
             
                 
                 

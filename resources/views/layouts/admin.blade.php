@@ -15,6 +15,12 @@
     <link href="{{ asset('inspinia/css/style.css') }}" rel="stylesheet">
 
     @yield('styles')
+    <!-- bootstrap  -->
+    
+    
+
+
+
 </head>
 <body>
 
@@ -33,6 +39,8 @@
 </div>
 @include('partials.footer')
 <!-- Inspinia JS Files -->
+
+
 
     <!-- Include SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

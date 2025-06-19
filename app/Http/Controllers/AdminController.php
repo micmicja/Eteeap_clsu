@@ -134,24 +134,32 @@ public function applications()
         return back()->with('success', 'Application has been accepted and forwarded to the Assessor.');
     }
 
-    public function reject($id)
-    {
-        $application = ApplicationForm::findOrFail($id);
-        $user = $application->user; 
+   public function reject(Request $request, $id)
+{
+    // ✅ Validate remarks input
+    $request->validate([
+        'remarks' => 'required|string|max:1000',
+    ]);
 
-        if (!$user || !$user->email) {
-            return back()->with('error', 'Applicant email not found.');
-        }
+    // ✅ Find the application and user
+    $application = ApplicationForm::findOrFail($id);
+    $user = $application->user;
 
-       
-        $application->status = 'Rejected by Arlene';
-        $application->save();
-
-     
-        Mail::to($user->email)->send(new ApplicationRejected($user)); 
-
-        return back()->with('success', 'Application has been rejected and the applicant has been notified.');
+    if (!$user || !$user->email) {
+        return back()->with('error', 'Applicant email not found.');
     }
+
+    // ✅ Update status and remarks
+    $application->status = 'Rejected by Arlene';
+    $application->remarks = $request->remarks;
+    $application->save();
+
+    // ✅ Send rejection email with remarks
+    Mail::to($user->email)->send(new ApplicationRejected($application));
+
+    return back()->with('success', 'Application has been rejected and the applicant has been notified.');
+}
+
     public function unreject($id)
 {
     $application = ApplicationForm::findOrFail($id);

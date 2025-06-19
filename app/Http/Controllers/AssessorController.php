@@ -7,6 +7,7 @@ use App\Models\ApplicationForm;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ApplicationRejected;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class AssessorController extends Controller
 {
@@ -31,18 +32,26 @@ class AssessorController extends Controller
 
         return back()->with('success', 'Application has been accepted and forwarded to the Department Coordinator.');
     }
-    public function reject($id)
-    {
-        $application = ApplicationForm::findOrFail($id);
-        $application->status = 'Rejected by Assessor';
-        $application->save();
-    
-      
-        $user = User::where('id', $application->user_id)->first();
-        if ($user) {
-            Mail::to($user->email)->send(new ApplicationRejected($application));
-        }
-    
-        return back()->with('error', 'Application has been rejected and the applicant has been notified.');
+  public function reject(Request $request, $id)
+{
+    // Validate the remarks input
+    $request->validate([
+        'remarks' => 'required|string|max:1000',
+    ]);
+
+    // Find and update the application
+    $application = ApplicationForm::findOrFail($id);
+    $application->remarks = $request->remarks;
+    $application->status = 'Rejected by Assessor';
+    $application->save();
+
+    // Send rejection email
+    $user = $application->user; // assuming there's a `user()` relationship
+    if ($user && $user->email) {
+        Mail::to($user->email)->send(new ApplicationRejected($application));
     }
+
+    return back()->with('success', 'Application rejected and email sent.');
+}
+
 }

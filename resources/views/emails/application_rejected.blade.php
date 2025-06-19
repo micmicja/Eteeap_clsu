@@ -10,12 +10,15 @@
     
     <p>Dear {{ $applicant->first_name }} {{ $applicant->middle_name }} {{ $applicant->last_name }},</p>
 
-    <p>We regret to inform you that your application has been rejected.</p>
-    
+    <p>We regret to inform you that your application has been <strong>rejected</strong>.</p>
+
+    @if (!empty($applicant->remarks))
+        <p><strong>Remarks:</strong> {{ $applicant->remarks }}</p>
+    @endif
+
     <p>If you have any questions, feel free to contact us.</p>
     
     <p>Best regards,</p>
     <p>Eteeap Office</p>
-    
 </body>
 </html>
