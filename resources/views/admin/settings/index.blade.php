@@ -35,7 +35,7 @@
             @endif
         </div>
 
-        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">
+        <button type="submit" class="px-4 py-2 bg-blue-600 text-black rounded">
             Save Settings
         </button>
     </form>

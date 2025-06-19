@@ -73,10 +73,9 @@
                                 {{ __('Cancel') }}
                             </a>
                             <x-primary-button class="ms-3 animate__animated animate__spin animate__slow">
-                                <a href="{{ route('terms') }}">
-                                    {{ __('Register') }}
-                                </a>
-                            </x-primary-button>
+                           <a href="{{ route('register') }}">Register</a>
+                        </x-primary-button>
+
                             
                         </div>
                     </div>

@@ -137,14 +137,14 @@ Route::get('/homepage', [HomeController::class, 'showHomePage'])->name('homepage
     Route::put('/application/{id}/unreject', [AdminController::class, 'unreject'])->name('admin.application.unreject');
 
     // Schedule management
-    Route::get('/admin/schedule/reschedule/{id}', [InterviewScheduleController::class, 'rescheduleForm'])->name('schedule.reschedule.form');
+    
+    Route::get('/admin/schedule/reschedule/{id}', [InterviewScheduleController::class, 'showRescheduleForm'])->name('schedule.reschedule');
     Route::get('/schedule/reschedule/{id}', [InterviewScheduleController::class, 'form'])->name('schedule.reschedule.form');
-    Route::post('/schedule/reschedule/{id}', [InterviewScheduleController::class, 'updateReschedule'])->name('admin.schedule.updateReschedule');
+
     Route::get('/admin/schedule/form/{id}', [InterviewScheduleController::class, 'form'])->name('interview.schedule.form');
     Route::get('/admin/accepted-applicants', [AcceptedApplicantsController::class, 'index'])->name('accepted_applicants.index');
-    Route::get('schedule/reschedule/{id}', [InterviewScheduleController::class, 'rescheduleForm'])->name('schedule.reschedule');
-    Route::post('/schedule/reschedule/{id}', [InterviewScheduleController::class, 'updateReschedule'])->name('schedule.updateReschedule');
-
+Route::put('/schedule/reschedule/{id}', [InterviewScheduleController::class, 'updateReschedule'])->name('schedule.updateReschedule');
+        
     
     // Accepted applicants
     Route::get('/accepted-applicants', [AcceptedApplicantsController::class, 'index'])->name('admin.accepted.applicants');
@@ -193,4 +193,5 @@ Route::get('/homepage', [HomeController::class, 'showHomePage'])->name('homepage
     });
 
     // Auth routes (login, register, forgot password, etc)
+    
     require __DIR__.'/auth.php';

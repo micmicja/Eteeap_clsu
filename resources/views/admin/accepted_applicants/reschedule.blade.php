@@ -24,9 +24,9 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <form action="{{ isset($schedule) ? route('schedule.reschedule', $schedule->id) : route('schedule.store') }}" method="POST">
+    <form action="{{ isset($schedule) ? route('schedule.updateReschedule', $schedule->id) : route('schedule.store') }}" method="POST">
         @csrf
-        @if(isset($schedule)) @method('POST') @endif
+        @if(isset($schedule)) @method('PUT') @endif
 
         <div class="form-group">
             <label for="location">Interview Location:</label>
@@ -35,7 +35,6 @@
 
         <h4>Selected Applicants</h4>
         <ul>
-            @php $applicants = [$applicant]; @endphp
             @foreach($applicants as $applicant)
                 <li>
                     <input type="hidden" name="applicant_ids[]" value="{{ $applicant->id }}">
@@ -71,7 +70,7 @@
                 </tbody>
             </table>
         </div>
-        
+
         <button type="submit" class="btn btn-{{ isset($schedule) ? 'warning' : 'primary' }}">
             {{ isset($schedule) ? 'Confirm Reschedule' : 'Submit Schedule' }}
         </button>

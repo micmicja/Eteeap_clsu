@@ -25,7 +25,6 @@
                 <div class="flex justify-center mb-4">
                     <img src="{{ asset('images/logo12.png') }}" alt="Logo" class="h-16">
                 </div>
-
                 <!-- Welcome Text -->
                 <div class="text-center">
                     <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white">Create Account</h2>
@@ -70,6 +69,8 @@
                         <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                             {{ __('Already registered?') }}
                         </a>
+
+                       
 
                         <x-primary-button class="ms-4">
                             {{ __('Register') }}

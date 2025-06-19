@@ -476,7 +476,7 @@
         
         var printContent = document.getElementById("applicationDetails").innerHTML;
         var originalContent = document.body.innerHTML;
-
+  
         
         document.body.innerHTML = printContent;
 
@@ -487,3 +487,4 @@
 </script>
 
 @endsection
+ 

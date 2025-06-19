@@ -84,9 +84,7 @@
                                 <strong>Location:</strong> {{ $application->schedule->interview_location }}
                             </td>
                             <td>
-                                <a href="{{ route('schedule.reschedule', $application->id) }}" class="btn btn-warning">Reschedule</a>
-
-                              
+                            <a href="{{ route('schedule.reschedule', $application->schedule->id) }}" class="btn btn-warning">Reschedule</a>
                             </td>
                         </tr>
                     @endif
