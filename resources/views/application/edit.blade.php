@@ -6,7 +6,7 @@
 <div class="container">
     <h2>Edit Application</h2>
     <a href="{{ route('user.index') }}" class="btn btn-primary mb-3">Back</a>
-    <form id="editForm" method="POST" action="{{ route('application.update', $application->id) }}">
+    <form id="editForm" method="POST" action="{{ route('application.update', $application->id) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
     

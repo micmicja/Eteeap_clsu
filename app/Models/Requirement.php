@@ -19,4 +19,9 @@ class Requirement extends Model
         'recommendation_letter',
         'proficiency_certificate',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

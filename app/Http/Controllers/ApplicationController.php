@@ -249,12 +249,14 @@ class ApplicationController extends Controller
 
             $requirement = Requirement::firstOrNew(['user_id' => $user->id]);
 
-            foreach ($requirementFields as $field) {
-                if ($request->hasFile($field)) {
-                    $file = $request->file($field);
-                    $filename = $user->id . '_' . $field . '.' . $file->getClientOriginalExtension();
-                    $file->storeAs('public/requirements', $filename);
-                    $requirement->$field = $filename;
+            if ($request->has('requirements')) {
+                foreach ($requirementFields as $field) {
+                    if ($request->hasFile('requirements.' . $field)) {
+                        $file = $request->file('requirements.' . $field);
+                        $filename = $user->id . '_' . $field . '.' . $file->getClientOriginalExtension();
+                        $file->storeAs('public/requirements', $filename);
+                        $requirement->$field = $filename;
+                    }
                 }
             }
 
@@ -406,6 +408,7 @@ class ApplicationController extends Controller
         $work_community_conferring_organizations = explode(',', $application->work_community_conferring_organizations);
         $work_community_date_awarded = explode(',', $application->work_community_date_awarded);
         
+        $requirement = Requirement::where('user_id', $application->user_id)->first();
         return view('application.edit', compact(
             'application',
             'degree_programs',
@@ -426,11 +429,8 @@ class ApplicationController extends Controller
             'community_date_awarded',
             'work_awards_conferred',
             'work_community_conferring_organizations',
-            'work_community_date_awarded'
-            
-
-
-          
+            'work_community_date_awarded',
+            'requirement'
         ));
     }
 
@@ -497,6 +497,29 @@ class ApplicationController extends Controller
         }
 
         $application->save();
+
+        // Handle requirements file uploads
+        $user = auth()->user();
+        $requirementFields = [
+            'original_school_credentials',
+            'certificate_of_employment',
+            'nbi_barangay_clearance',
+            'recommendation_letter',
+            'proficiency_certificate'
+        ];
+        $requirement = \App\Models\Requirement::firstOrNew(['user_id' => $user->id]);
+        if ($request->has('requirements')) {
+            foreach ($requirementFields as $field) {
+                if ($request->hasFile('requirements.' . $field)) {
+                    $file = $request->file('requirements.' . $field);
+                    $filename = $user->id . '_' . $field . '.' . $file->getClientOriginalExtension();
+                    $file->storeAs('public/requirements', $filename);
+                    $requirement->$field = $filename;
+                }
+            }
+        }
+        $requirement->user_id = $user->id;
+        $requirement->save();
 
         return redirect()->route('user.index')->with('success', 'Application updated successfully.');
     } catch (\Exception $e) {

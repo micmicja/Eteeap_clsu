@@ -58,8 +58,7 @@
                         
                         <div id="preview-box" style="width: 200px; height: 200px; border: 1px solid #000; display: flex; align-items: center; justify-content: center; overflow: hidden; margin: auto;">
                             <img id="image-preview" src="#" alt="Image Preview" style="display: none; max-width: 100%; max-height: 100%;" />
-                         1x1 pic    <br>
-                          scan pix not accepted
+                        
                         </div>
                         <input type="file" name="profile_image" class="form-control-file mt-2" accept="image/*" required onchange="previewImage(event)">
                         <div id="filename_profile_image" style="margin-top: 5px; display: none;"></div> 

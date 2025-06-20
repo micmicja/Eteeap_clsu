@@ -122,8 +122,7 @@ public function applications()
     public function view($id)
     {
         $application = ApplicationForm::findOrFail($id);
-        $requirement = \App\Models\Requirement::where('user_id', $application->user_id)->first();
-        return view('admin.application_view', compact('application', 'requirement'));
+        return view('admin.application_view', compact('application'));
     }
 
     public function accept($id)
@@ -151,7 +150,7 @@ public function applications()
     }
 
     // ✅ Update status and remarks
-    $application->status = 'Rejected by Admin';
+    $application->status = 'Rejected by Arlene';
     $application->remarks = $request->remarks;
     $application->save();
 

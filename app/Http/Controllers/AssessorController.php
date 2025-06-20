@@ -13,8 +13,9 @@ class AssessorController extends Controller
 {
     public function view($id)
     {
-    $application = ApplicationForm::findOrFail($id);
-    return view('admin.assessor.application_view', compact('application'));
+        $application = ApplicationForm::findOrFail($id);
+        $requirement = \App\Models\Requirement::where('user_id', $application->user_id)->first();
+        return view('admin.assessor.application_view', compact('application', 'requirement'));
     }
 
 

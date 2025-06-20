@@ -20,6 +20,8 @@ use App\Http\Controllers\InterviewScheduleController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\CredentialController;
+
 
 
 use App\Models\Post;
@@ -193,5 +195,9 @@ Route::put('/schedule/reschedule/{id}', [InterviewScheduleController::class, 'up
     });
 
     // Auth routes (login, register, forgot password, etc)
+
+    //credentials
+    Route::get('/admin/credentials/view/{id}', [CredentialController::class, 'show'])->name('credentials.view');
+    
     
     require __DIR__.'/auth.php';

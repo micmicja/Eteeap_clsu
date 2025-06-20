@@ -1,7 +1,10 @@
 @extends('layouts.admin')
 
 @section('content')
+
+
 <a href="{{ route('college.dashboard') }}" class="btn btn-secondary">Back</a>
+
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="container">
@@ -453,6 +456,47 @@
                                 
                                 
                             </div>
+                            <div class="d-print-none">
+    <h2 class="text-center">Uploaded Requirements</h2>
+    <h4 class="text-center">"Click the image to enlarge it in a pop-up window."</h4>
+</div>
+
+@if (isset($requirement) && $requirement)
+    <div class="row">
+        @foreach ([
+            'original_school_credentials' => 'Original School Credentials',
+            'certificate_of_employment' => 'Certificate of Employment',
+            'nbi_barangay_clearance' => 'NBI / Barangay Clearance',
+            'recommendation_letter' => 'Recommendation Letter',
+            'proficiency_certificate' => 'Proficiency Certificate'
+        ] as $key => $label)
+            <div class="col-md-4 text-center mb-3">
+                <p><strong>{{ $label }}</strong></p>
+                @if (!empty($requirement->$key))
+                    @php
+                        $filePath = 'storage/requirements/' . $requirement->$key;
+                        $fileExists = file_exists(public_path($filePath));
+                    @endphp
+                    @if ($fileExists)
+                        <a href="{{ asset($filePath) }}" target="_blank">
+                            <img src="{{ asset($filePath) }}"
+                                 class="img-fluid img-thumbnail"
+                                 style="cursor: pointer; max-width: 100%; height: auto;">
+                        </a>
+                        <p class="text-muted mt-1">{{ $requirement->$key }}</p>
+                    @else
+                        <p class="text-danger">File not found: {{ $requirement->$key }}</p>
+                    @endif
+                @else
+                    <p class="text-danger">No file uploaded.</p>
+                @endif
+            </div>
+        @endforeach
+    </div>
+@else
+    <p class="text-danger text-center"><strong>No uploaded requirements yet.</strong></p>
+@endif
+
                           
                         
                             
@@ -488,4 +532,3 @@
 </script>
 
 @endsection
- 

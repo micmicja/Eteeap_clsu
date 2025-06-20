@@ -19,7 +19,8 @@ class CollegeCoordinatorController extends Controller
     public function view($id)
     {
         $application = ApplicationForm::findOrFail($id);
-        return view('admin.college_coordinator.application_view', compact('application'));
+        $requirement = \App\Models\Requirement::where('user_id', $application->user_id)->first();
+        return view('admin.college_coordinator.application_view', compact('application', 'requirement'));
     }
     
     public function accept($id)

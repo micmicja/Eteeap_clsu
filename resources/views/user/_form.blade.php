@@ -1,4 +1,3 @@
-
 <body data-page="edit" data-user-id="{{ auth()->id() }}">
 
     <form>
@@ -469,33 +468,93 @@ day of <input type="text" name="declaration_month_year" class="form-control d-in
 </div>
 </div>
 
-
-    
-
-
-
-<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.0/dist/sweetalert2.min.js"></script>
-
+<h2 class="text-center mt-4">Edit Uploaded Requirements</h2>
+@php
+    $fields = [
+        'original_school_credentials' => 'Original School Credentials',
+        'certificate_of_employment' => 'Certificate of Employment',
+        'nbi_barangay_clearance' => 'NBI/Barangay Clearance',
+        'recommendation_letter' => 'Recommendation Letter',
+        'proficiency_certificate' => 'Proficiency Certificate'
+    ];
+@endphp
+<div class="row">
+    @foreach($fields as $name => $label)
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm border rounded-3">
+                <div class="card-body">
+                    <label for="{{ $name }}" class="form-label"><strong>{{ $label }}</strong></label>
+                    <input 
+                        type="file" 
+                        name="requirements[{{ $name }}]" 
+                        id="{{ $name }}" 
+                        data-field="{{ $name }}"
+                        class="form-control fileInput"
+                        accept=".jpg,.jpeg,.png"
+                    >
+                    <div class="mt-3 text-center">
+                        @if (!empty($requirement) && !empty($requirement->$name))
+                            <a href="{{ asset('storage/requirements/' . $requirement->$name) }}" target="_blank">
+                                <img src="{{ asset('storage/requirements/' . $requirement->$name) }}" class="img-fluid rounded clickable-image" style="max-height: 160px; cursor: pointer;">
+                            </a>
+                            <div class="text-muted mt-2">Current: {{ $requirement->$name }}</div>
+                        @else
+                            <div class="mb-2 text-danger small">No file uploaded.</div>
+                        @endif
+                        <img 
+                            id="preview_{{ $name }}" 
+                            class="previewImage img-fluid rounded clickable-image" 
+                            src="" 
+                            style="display:none; max-height: 160px; cursor: pointer;"
+                            data-bs-toggle="modal" 
+                            data-bs-target="#imageModal"
+                        >
+                        <div id="filename_{{ $name }}" class="text-muted mt-2" style="display:none;"></div>
+                        <button type="button" class="btn btn-outline-danger btn-sm mt-2 clearBtn" data-field="{{ $name }}" style="display:none;">Clear</button>
+                    </div>
+                    @error('requirements.' . $name)
+                        <div class="text-danger mt-2">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+        </div>
+    @endforeach
+</div>
+<!-- Modal for image preview -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <img id="modalImage" src="" class="img-fluid rounded" style="max-height: 90vh;">
+      </div>    
+    </div>
+  </div>
+</div>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        $('#addFormalEducationRow').click(function () {
-            $('#formalEducationTable tbody').append(`
-                <tr>
-                    <td><textarea name="degree_programs[]" class="form-control auto-resize"></textarea></td>
-                    <td><textarea name="school_addresses[]" class="form-control auto-resize"></textarea></td>
-                    <td><textarea name="inclusive_dates[]" class="form-control auto-resize"></textarea></td>
-                    <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
-                </tr>
-            `);
-        });
-    
-        $(document).on('click', '.remove-row', function () {
-            $(this).closest('tr').remove();
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.fileInput').forEach(function(input) {
+        input.addEventListener('change', function(e) {
+            const field = this.getAttribute('data-field');
+            const preview = document.getElementById('preview_' + field);
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '';
+                preview.style.display = 'none';
+            }
         });
     });
-    </script>
+    document.querySelectorAll('.clickable-image').forEach(function(img) {
+        img.addEventListener('click', function() {
+            document.getElementById('modalImage').src = this.src;
+        });
+    });
+});
+</script>
     </body>
-   
