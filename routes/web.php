@@ -198,6 +198,6 @@ Route::put('/schedule/reschedule/{id}', [InterviewScheduleController::class, 'up
 
     //credentials
     Route::get('/admin/credentials/view/{id}', [CredentialController::class, 'show'])->name('credentials.view');
-    
+
     
     require __DIR__.'/auth.php';

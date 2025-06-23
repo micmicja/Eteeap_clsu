@@ -545,7 +545,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 };
                 reader.readAsDataURL(file);
             } else {
-                preview.src = '';
+                preview.src = '';        
                 preview.style.display = 'none';
             }
         });
@@ -558,3 +558,4 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
     </body>
+     

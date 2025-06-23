@@ -22,6 +22,7 @@ class ApplicationController extends Controller
     {
         return view('information');
     }
+    
 
     public function store(Request $request)
     {

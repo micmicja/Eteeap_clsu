@@ -52,10 +52,34 @@
                                                 @csrf @method('PUT')
                                                 <button type="submit" class="btn btn-success btn-xs">Accept</button>
                                             </form>
-                                            <form action="{{ route('admin.application.reject', $application->id) }}" method="POST" style="display:inline;">
-                                                @csrf @method('PUT')
-                                                <button type="submit" class="btn btn-danger btn-xs">Reject</button>
-                                            </form>
+                                           <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#rejectModal">
+    Reject
+</button>
+
+<!-- Reject Modal -->
+<div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form id="rejectForm" action="{{ route('assessor.application.reject', $application->id) }}" method="POST">
+      @csrf
+      @method('PUT')
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="rejectModalLabel">Reject Application</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <label for="remarks" class="form-label">Please enter remarks for rejection:</label>
+          <textarea class="form-control" id="remarks" name="remarks" required></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-danger">Confirm Reject</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
                                         </td>
                                     </tr>
                                 @endforeach
@@ -148,6 +172,7 @@
                                     <th>ID</th>
                                     <th>Applicant Name</th>
                                     <th>Status</th>
+                                    <th>Remarks</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -157,18 +182,42 @@
                                         <td>{{ $application->id }}</td>
                                         <td>{{ $application->first_name }} {{ $application->middle_name }} {{ $application->last_name }}</td>
                                         <td><span class="label label-danger">{{ $application->status }}</span></td>
+                                        <td>{{ $application->remarks }}</td>
                                         <td>
-                                            <form action="{{ route('admin.application.unreject', $application->id) }}" method="POST" style="display:inline;">
-                                                @csrf @method('PUT')
-                                                <button type="submit" class="btn btn-warning btn-xs">Unreject</button>
-                                            </form>
+                                            <!-- Unreject Button -->
+                                            <button type="button" class="btn btn-warning btn-xs" data-bs-toggle="modal" data-bs-target="#unrejectModal-{{ $application->id }}">
+                                                Unreject
+                                            </button>
+
+                                            <!-- Unreject Modal -->
+                                            <div class="modal fade" id="unrejectModal-{{ $application->id }}" tabindex="-1" aria-labelledby="unrejectModalLabel-{{ $application->id }}" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <form action="{{ route('admin.application.unreject', $application->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="unrejectModalLabel-{{ $application->id }}">Confirm Unreject</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Are you sure you want to unreject this application?<br>
+                                                                <strong>This action will move the application back to pending status.</strong>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                                <button type="submit" class="btn btn-warning">Yes, Unreject</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
-                    
                 </div>
             </div>
         </div>
@@ -189,4 +238,9 @@
         });
     });
 </script>
+@endsection
+@section('scripts')
+<!-- Use CDN to ensure JS loads correctly -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 @endsection
