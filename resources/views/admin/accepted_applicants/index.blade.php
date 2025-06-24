@@ -36,11 +36,25 @@
                                 </td>
                                 <td>{{ $application->id }}</td>
                                 <td class="applicant-name">{{ $application->first_name }} {{ $application->middle_name }} {{ $application->last_name }}</td>
-                                <td class="degree-program">
-                                    <a href="#" class="edit-degree-program" data-id="{{ $application->id }}" data-degree="{{ $application->degree_program }}">
-                                        {{ $application->degree_program }}
-                                    </a>
-                                </td>
+        @php
+    $degreeProgram = is_array($application->degree_program)
+        ? implode(', ', $application->degree_program)
+        : (json_decode($application->degree_program)[0] ?? $application->degree_program);
+@endphp
+
+<td class="degree-program">
+    {{ $degreeProgram }}
+    <button 
+        type="button"
+        class="btn btn-sm btn-secondary editDegreeBtn" 
+        data-id="{{ $application->id }}"
+        data-degree="{{ $degreeProgram }}"
+    >
+        Edit
+    </button>
+</td>
+
+
                                 <td>
                                     <span class="badge {{ $application->status == 'Accepted by College Coordinator' ? 'bg-success' : 'bg-info' }}">
                                         {{ $application->status == 'Accepted by College Coordinator' ? 'Qualified' : $application->status }}
@@ -76,11 +90,7 @@
                         <tr class="animated fadeIn">
                             <td>{{ $application->id }}</td>
                             <td class="applicant-name">{{ $application->first_name }} {{ $application->middle_name }} {{ $application->last_name }}</td>
-                            <td class="degree-program">
-                                <a href="#" class="edit-degree-program" data-id="{{ $application->id }}" data-degree="{{ $application->degree_program }}">
-                                    {{ $application->degree_program }}
-                                </a>
-                            </td>
+                            <td class="degree-program">{{ $application->degree_program }}</td>
                             <td>
                                 <span class="badge {{ $application->status == 'Accepted by College Coordinator' ? 'bg-success' : 'bg-info' }}">
                                     {{ $application->status == 'Accepted by College Coordinator' ? 'Qualified' : $application->status }}
@@ -101,29 +111,32 @@
         </table>
     </div>
 </div>
-
-<!-- Degree Program Edit Modal -->
+<!-- Modal -->
 <div class="modal fade" id="editDegreeModal" tabindex="-1" aria-labelledby="editDegreeModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editDegreeModalLabel">Edit Degree Program</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="editDegreeForm" method="POST" action="">
-          @csrf
-          <input type="hidden" name="applicant_id" id="editApplicantId">
+    <form method="POST" id="editDegreeForm">
+      @csrf
+      @method('PUT')
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editDegreeModalLabel">Edit Degree Program</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="application_id" id="editApplicationId">
           <div class="mb-3">
-            <label for="degreeProgramInput" class="form-label">Degree Program</label>
-            <input type="text" class="form-control" id="degreeProgramInput" name="degree_program" required>
+            <label for="degreeProgram" class="form-label">Degree Program</label>
+            <input type="text" class="form-control" name="degree_program" id="degreeProgram">
           </div>
-          <button type="submit" class="btn btn-primary">Save changes</button>
-        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Save Changes</button>
+        </div>
       </div>
-    </div>
+    </form>
   </div>
 </div>
+
 
 <script>
     document.getElementById('scheduleForm').addEventListener('submit', function(event) {
@@ -142,26 +155,28 @@
             row.style.display = (name.includes(filter) || degree.includes(filter)) ? '' : 'none';
         });
     });
+    
+    document.querySelectorAll('.editDegreeBtn').forEach(button => {
+    button.addEventListener('click', function () {
+        const appId = this.dataset.id;
+        const degree = this.dataset.degree;
+
+        document.getElementById('editApplicationId').value = appId;
+        document.getElementById('degreeProgram').value = degree;
+
+        // Update form action URL
+        document.getElementById('editDegreeForm').action = `/admin/applications/${appId}/update-degree`;
+
+        // Show modal (Bootstrap 5)
+        let modal = new bootstrap.Modal(document.getElementById('editDegreeModal'));
+        modal.show();
+    });
+        });
+
 </script>
 @endsection
 @section('scripts')
 <!-- Use CDN to ensure JS loads correctly -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-$(document).ready(function() {
-    $(document).on('click', '.edit-degree-program', function(e) {
-        e.preventDefault();
-        var applicantId = $(this).data('id');
-        var degree = $(this).data('degree');
-        $('#editApplicantId').val(applicantId);
-        $('#degreeProgramInput').val(degree);
-        // Set the form action dynamically
-        $('#editDegreeForm').attr('action', `/admin/applicants/${applicantId}/degree-program`);
-        var modal = new bootstrap.Modal(document.getElementById('editDegreeModal'));
-        modal.show();
-    });
-});
-</script>
 @endsection
-
