@@ -12,7 +12,6 @@
 
         <div class="row mb-5">
             <div class="col-12 text-center">
-                <div class="navy-line mb-3" style="background-color: #fff; height: 3px; width: 80px; margin: 0 auto; border-radius: 2px;"></div>
                 <h2 class="font-bold text-uppercase text-white" style="font-size: 2.5rem;">Mission and Vision</h2>
                 <p class="text-white fs-5" style="font-size: 1.25rem;">The ETEEAP Program's foundation is guided by the following mission and vision:</p>
             </div>

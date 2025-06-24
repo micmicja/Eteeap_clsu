@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('title', 'ETEEAP - Home')
@@ -42,8 +41,88 @@
 
 }
 
-
- 
+#announcementSlider {
+        position: relative;
+        min-height: 250px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .announcement-slide {
+        flex: 1 1 auto;
+        max-width: 700px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .announcement-title-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    .announcement-title-row h3 {
+        flex: 1 1 auto;
+        text-align: center;
+        margin: 0 1rem;
+        font-weight: 600;
+    }
+    #prevBtn, #nextBtn {
+        position: static !important;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        font-size: 1.3rem;
+        font-weight: bold;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.13);
+        background: linear-gradient(135deg, #F9B233 60%, #fff 100%);
+        color: #087a29;
+        border: none;
+        outline: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 0.5rem;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.15s;
+        box-shadow: 0 4px 16px rgba(249,178,51,0.13);
+    }
+    #prevBtn:hover, #nextBtn:hover {
+        background: linear-gradient(135deg, #087a29 60%, #F9B233 100%);
+        color: #fff;
+        transform: scale(1.08);
+        box-shadow: 0 6px 20px rgba(8,122,41,0.18);
+    }
+    #prevBtn:active, #nextBtn:active {
+        background: #087a29;
+        color: #fff;
+        transform: scale(0.97);
+    }
+    #prevBtn i, #nextBtn i {
+        margin: 0;
+    }
+    @media (max-width: 991.98px) {
+        #prevBtn {
+            left: -30px;
+        }
+        #nextBtn {
+            right: -30px;
+        }
+        .announcement-slide {
+            max-width: 95vw;
+        }
+    }
+    @media (max-width: 767.98px) {
+        .announcement-title-row h3 {
+            font-size: 1rem;
+        }
+        #prevBtn, #nextBtn {
+            width: 32px;
+            height: 32px;
+            font-size: 1rem;
+        }
+    }
      </style>
 
 <div id="inSlider" class="carousel slide carousel-fade" data-ride="carousel" style="position: relative; z-index: 2; padding-top: 4rem; padding-bottom: 35rem;">
@@ -155,20 +234,16 @@
         <div id="announcementSlider" class="position-relative">
             @foreach($posts as $index => $post)
                 <div class="announcement-slide" style="{{ $index === 0 ? '' : 'display: none;' }}">
-                    <h3 class="mb-2" style="font-weight: 600;">{{ $post->title }}</h3>
+                    <div class="announcement-title-row">
+                        <button id="prevBtn" class="btn" aria-label="Previous"><i class="fa fa-chevron-left"></i></button>
+                        <h3 class="mb-2">{{ $post->title }}</h3>
+                        <button id="nextBtn" class="btn" aria-label="Next"><i class="fa fa-chevron-right"></i></button>
+                    </div>
                     <div class="post-content">
                         {!! $post->description !!}
                     </div>
                 </div>
             @endforeach
-
-            
-            <button id="prevBtn" class="btn btn-outline-primary position-absolute" style="top: 50%; left: 0; transform: translateY(-50%); z-index: 10;">
-                &laquo; Prev
-            </button>
-            <button id="nextBtn" class="btn btn-outline-primary position-absolute" style="top: 50%; right: 0; transform: translateY(-50%); z-index: 10;">
-                Next &raquo;
-            </button>
         </div>
     @else
         <p class="text-center">No announcements available.</p>
@@ -219,14 +294,18 @@
             autoSlideStopped = true;
         };
 
-        document.getElementById('prevBtn').addEventListener('click', () => {
-            prevSlide();
-            stopAutoSlide();
+        // Attach event listeners to all prev/next buttons in each slide
+        document.querySelectorAll('#prevBtn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                prevSlide();
+                stopAutoSlide();
+            });
         });
-
-        document.getElementById('nextBtn').addEventListener('click', () => {
-            nextSlide();
-            stopAutoSlide();
+        document.querySelectorAll('#nextBtn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                nextSlide();
+                stopAutoSlide();
+            });
         });
 
         showSlide(currentSlide);

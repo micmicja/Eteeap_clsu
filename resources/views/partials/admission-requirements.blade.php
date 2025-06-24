@@ -1,4 +1,4 @@
-<section id="admission-requirements" class="py-5" style="position: relative; min-height: 100vh;">
+<section id="admission-requirements"class="py-5" style="position: relative; min-height: 100vh;" >
     
     <div style="
     position: absolute;
@@ -14,7 +14,6 @@
     <div class="container-fluid px-lg-5" style="position: relative; z-index: 2; padding-top: 2rem; padding-bottom: 5rem;">
       <div class="row mb-5">
         <div class="col-12 text-center">
-          <div class="navy-line mb-3"></div>
           <h2 class="font-weight-bold text-uppercase text-white" style="font-size: 2.0rem;">Admission Requirements Panel</h2>
           <p class="text-white fs-5" style="font-size: 1.25rem;">To complete the admission process, applicants must submit the following documents:</p>
         </div>

@@ -16,7 +16,7 @@
 
       <div class="row mb-5">
         <div class="col-12 text-center">
-          <div class="navy-line mb-3"></div>
+
           <h2 class="font-bold text-uppercase text-white">Qualifications of an Applicant</h2>
           <p class="fs-5 text-white">An ETEEAP applicant must be a Filipino citizen and must meet the following qualifications:</p>
         </div>

@@ -1,3 +1,4 @@
+<br>
 <section id="courses-offered" class="py-5" style="position: relative; min-height: 100vh;" >
  
     <div style="

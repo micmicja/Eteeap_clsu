@@ -18,7 +18,7 @@
      
       <div class="row mb-5">
         <div class="col-12 text-center">
-          <div class="navy-line mb-3"></div>
+          
           <h2 class="font-bold text-uppercase text-white">Procedures in Applying for ETEEAP</h2>
         </div>
       </div>
