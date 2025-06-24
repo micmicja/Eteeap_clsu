@@ -50,39 +50,43 @@
                 <ul class="navbar-nav ms-auto mb-2 mb-md-0">
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link btn-login text-white d-flex align-items-center justify-content-center" href="{{ route('login') }}">
-                                <i class="fas fa-sign-in-alt me-2"></i> <span class="fw-bold">Login</span>
+                            <a class="btn btn-outline-success fw-bold d-flex align-items-center justify-content-center px-4 py-2 me-2" href="{{ route('login') }}">
+                                <i class="fas fa-sign-in-alt me-2"></i> Login
                             </a>
                         </li>
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link btn-register text-white d-flex align-items-center justify-content-center" href="{{ route('register') }}">
-                                    <i class="fas fa-user-plus me-2"></i> <span class="fw-bold">Register</span>
+                                <a class="btn btn-outline-warning fw-bold d-flex align-items-center justify-content-center px-4 py-2 ms-2" href="{{ route('register') }}">
+                                    <i class="fas fa-user-plus me-2"></i> Register
                                 </a>
                             </li>
                         @endif
                     @else
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user"></i> {{ Auth::user()->name }}
+                            <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#" id="navbarDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false" style="white-space: nowrap;">
+                                <i class="fas fa-user me-2"></i> 
+                                <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <li>
                                     <a class="dropdown-item" href="{{ route('user.index', Auth::user()->id) }}">
-                                        <i class="fas fa-file-alt"></i> Application Form
+                                        <i class="fas fa-file-alt me-2"></i> Application Form
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="{{ route('profile.edit') }}">
-                                        <i class="fas fa-user-edit"></i> Edit Profile
+                                        <i class="fas fa-user-edit me-2"></i> Edit Profile
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                       <i class="fas fa-sign-out-alt"></i> Logout
+                                       <i class="fas fa-sign-out-alt me-2"></i> Logout
                                     </a>
+                                </li>
+                            </ul>
+                        </li>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
@@ -138,44 +142,6 @@
         margin-left: 0.5rem;
         margin-right: 0.5rem;
     }
-    .btn-login {
-        background: linear-gradient(90deg, #009639 60%, #45b31a 100%);
-        color: #fff !important;
-        font-weight: 700;
-        border-radius: 999px;
-        padding: 0.6rem 1.7rem;
-        font-size: 1.13rem !important;
-        box-shadow: 0 2px 12px rgba(0,150,57,0.13);
-        margin-right: 0.5rem;
-        transition: background 0.2s, box-shadow 0.2s, color 0.2s;
-        border: none;
-        position: relative;
-    }
-    .btn-login:hover, .btn-login:focus {
-        background: linear-gradient(90deg, #13fb07 60%, #009639 100%);
-        color: #fff !important;
-        box-shadow: 0 4px 18px rgba(0,150,57,0.22);
-        text-decoration: none;
-    }
-    .btn-register {
-        background: linear-gradient(90deg, #F9B233 60%, #ffde7a 100%);
-        color: #087a29 !important;
-        font-weight: 700;
-        border-radius: 999px;
-        padding: 0.6rem 1.7rem;
-        font-size: 1.13rem !important;
-        box-shadow: 0 2px 12px rgba(249,178,51,0.13);
-        margin-left: 0.5rem;
-        transition: background 0.2s, box-shadow 0.2s, color 0.2s;
-        border: none;
-        position: relative;
-    }
-    .btn-register:hover, .btn-register:focus {
-        background: linear-gradient(90deg, #ffde7a 60%, #F9B233 100%);
-        color: #087a29 !important;
-        box-shadow: 0 4px 18px rgba(249,178,51,0.22);
-        text-decoration: none;
-    }
     @media (max-width: 991.98px) {
         .navbar-nav.mx-auto {
             gap: 0.2rem;
@@ -197,6 +163,18 @@
         }
         .navbar-nav.mx-auto {
             gap: 0.1rem;
+        }
+    }
+    /* Make dropdown menu scrollable and responsive */
+    .dropdown-menu {
+        max-height: 250px;
+        overflow-y: auto;
+        min-width: 200px;
+    }
+    @media (max-width: 575.98px) {
+        .dropdown-menu {
+            max-height: 180px;
+            font-size: 0.98rem;
         }
     }
 </style>

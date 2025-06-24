@@ -5,35 +5,32 @@
 @section('content')
 
 <div style="
-    position: absolute;
+    position: fixed;
     inset: 0;
     background: url('{{ asset('inspinia/img/landing/r.jpg') }}') no-repeat center center;
     background-size: cover;
     background-blend-mode: overlay;
     z-index: 0;
-  "></div>
+    pointer-events: none;
+"></div>
 
-<div class="container"style="z-index: 2; padding-top: 8rem; padding-bottom: 5rem;">
+<div class="container" style="z-index: 2; padding-top: 3rem; padding-bottom: 5rem;">
     <div class="wrapper wrapper-content animated fadeInRight">
-
         <form>
-            <div style="display: flex; align-items: center; justify-content: center;">
+            <div class="row justify-content-center align-items-center g-3 mb-4">
                 <!-- Logo on the left -->
-                <div style="flex: 0 0 auto; margin-right: 50px;">
-                    <img src="{{ asset('images/cl.png') }}" alt="Logo" width="100">
+                <div class="col-12 col-md-auto text-center mb-2 mb-md-0">
+                    <img src="{{ asset('images/cl.png') }}" alt="Logo" width="120" class="rounded-circle border border-2 border-success bg-white shadow-sm">
                 </div>
-            
                 <!-- Text block centered -->
-                <div style="text-align: center; line-height: 1.2; color: #f0f1f0;">
-                    <h5 style="margin: 0; font-size: 1rem;">Republic of the Philippines</h5>
-                    <h4 style="margin: 0; font-size: 1.5rem;">CENTRAL LUZON STATE UNIVERSITY</h4>
-                    <h5 style="margin: 0; font-size: 1rem;">Science City of Muñoz, Nueva Ecija</h5>
+                <div class="col-12 col-md flex-grow-1 text-center" style="line-height: 1.2; color: #f0f1f0;">
+                    <h5 class="mb-1" style="font-size: 1rem;">Republic of the Philippines</h5>
+                    <h4 class="mb-1 fw-bold text-uppercase" style="font-size: 1.2rem; letter-spacing: 1px;">Central Luzon State University</h4>
+                    <h5 class="mb-0" style="font-size: 1rem;">Science City of Muñoz, Nueva Ecija</h5>
                 </div>
-                
-            
                 <!-- Logo on the right -->
-                <div style="flex: 0 0 auto; margin-left: 50px;">
-                    <img src="{{ asset('images/eteeap.png') }}" alt="Logo" width="150">
+                <div class="col-12 col-md-auto text-center mt-2 mt-md-0">
+                    <img src="{{ asset('images/eteeap.png') }}" alt="Logo" width="200" class="">
                 </div>
             </div>
             
@@ -95,10 +92,10 @@
                                         Edit
                                     </a>
                                     
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="showDeleteModal({{ $application->id }})">Delete</button>
-                                    <form id="delete-form-{{ $application->id }}" action="{{ route('applications.destroy', $application->id) }}" method="POST" style="display:none;">
+                                    <form action="{{ route('applications.destroy', $application->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Are you sure you want to delete this application?');">
                                         @csrf
                                         @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                     </form>
                                 </td>
                                 

@@ -4,9 +4,10 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('home') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                <div class="shrink-0 flex items-center justify-center w-full" style="text-align:center;">
+                    <a href="{{ route('home') }}" class="flex flex-col items-center w-full" style="width:100%;">
+                        <x-application-logo class="block h-12 w-auto fill-current text-gray-800 mx-auto" />
+                        <span class="block font-bold text-lg text-gray-800 mt-2">ETEEAP</span>
                     </a>
                 </div>
 
