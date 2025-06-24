@@ -1,7 +1,5 @@
-
-
 <section id="mission-vision" class="gray-section d-flex align-items-center" 
-    style="background: url('{{ asset('inspinia/img/landing/r.jpg') }}') no-repeat center center; background-size: cover; min-height: 100vh; position: relative; padding: 0;">
+    style="min-height: 100vh; position: relative; padding: 0;">
 
 
 
@@ -42,6 +40,16 @@
         </div>
 
     </div>
+
+    <div style="
+      position: absolute;
+      inset: 0;
+      background: url('{{ asset('inspinia/img/landing/r.jpg') }}') no-repeat center center fixed;
+      background-size: cover;
+      background-attachment: fixed;
+      background-blend-mode: overlay;
+      z-index: 0;
+    "></div>
 </section>
 
 

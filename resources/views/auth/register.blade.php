@@ -7,23 +7,15 @@
 </head>
 
 <x-guest-layout>
-    <!-- Full Page Container with Animation -->
-    <div x-data="{ darkMode: false }" :class="{ 'dark': darkMode }" class="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
-        
-        <!-- Dark Mode Toggle Button -->
-        <div class="flex justify-end p-4">
-            <button @click="darkMode = !darkMode" class="text-sm text-gray-600 dark:text-gray-300">
-                <span x-text="darkMode ? '🌙 Dark' : '☀️ Light'"></span> Mode
-            </button>
-        </div>
+  
 
         <!-- Register Form Wrapper with Animation -->
-        <div class="flex items-center justify-center px-4 py-8 animate__animated animate__fadeInUp animate__delay-0.5s animate__slow">
+        <div class="flex items-center justify-center px-4 py-8 ">
             <div class="w-full max-w-md md:max-w-lg space-y-6 bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg">
                 
                 <!-- Logo -->
-                <div class="flex justify-center mb-4">
-                    <img src="{{ asset('images/logo12.png') }}" alt="Logo" class="h-16">
+                               <div class="flex justify-center mb-6">
+                    <img src="{{ asset('images/cl.png') }}" alt="Logo" class="h-28 w-auto drop-shadow-lg ">
                 </div>
                 <!-- Welcome Text -->
                 <div class="text-center">

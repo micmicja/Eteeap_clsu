@@ -14,12 +14,12 @@
 <x-guest-layout>
     
         
-        <div class="flex items-center justify-center px-4 py-8 animate__animated animate__fadeInUp animate__delay-1s">
+        <div class="flex items-center justify-center px-4 py-8  ">
             <div class="w-full max-w-md md:max-w-lg space-y-6 bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg">
                 
               
-                <div class="flex justify-center mb-4">
-                    <img src="{{ asset('images/cl.png') }}" alt="Logo" class="h-16">
+                <div class="flex justify-center mb-6">
+                    <img src="{{ asset('images/cl.png') }}" alt="Logo" class="h-28 w-auto drop-shadow-lg ">
                 </div>
 
                

@@ -1,14 +1,14 @@
 <section id="admission-requirements"class="py-5" style="position: relative; min-height: 100vh;" >
     
     <div style="
-    position: absolute;
-    inset: 0;
-    background: url('{{ asset('inspinia/img/landing/r.jpg') }}') no-repeat center center;
-    background-size: cover;
-
-    background-blend-mode: overlay;
-    z-index: 0;
-  "></div>
+      position: absolute;
+      inset: 0;
+      background: url('{{ asset('inspinia/img/landing/r.jpg') }}') no-repeat center center fixed;
+      background-size: cover;
+      background-attachment: fixed;
+      background-blend-mode: overlay;
+      z-index: 0;
+    "></div>
 
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="container-fluid px-lg-5" style="position: relative; z-index: 2; padding-top: 2rem; padding-bottom: 5rem;">
@@ -127,4 +127,3 @@
   </style>
   
   @include('partials.footer')
-  
