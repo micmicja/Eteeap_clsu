@@ -103,7 +103,16 @@
                             
                             <div class="form-group">
                                 <label>2. Address</label>
-                                <input type="text"  name="address" class="form-control"  value="{{  $application->address }}" readonly>
+                                <input type="text" name="address" class="form-control" readonly
+                                    value="{{ trim(
+                                        ($application->house_no ?? '') . ' ' .
+                                        ($application->street ?? '') . ' ' .
+                                        ($application->barangay ?? '') . ' ' .
+                                        ($application->city ?? '') . ' ' .
+                                        ($application->province ?? '') . ' ' .
+                                        ($application->zipcode ?? '') . ' ' .
+                                        ($application->country ?? '')
+                                    ) }}">
                             </div>
                             
                             <div class="form-group">

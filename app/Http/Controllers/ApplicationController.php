@@ -48,7 +48,13 @@ class ApplicationController extends Controller
             'middle_name' => 'nullable|string|max:255',
             'last_name' => 'required|string|max:255',
             'contact_number' => 'nullable|string|max:20',
-            'address' => 'required|string',
+            'house_no' => 'required|string|max:255',
+            'street' => 'required|string|max:255',
+            'barangay' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'province' => 'required|string|max:255',
+            'zipcode' => 'required|string|max:255',
+            'country' => 'required|string|max:255',
             'birthdate' => 'required|date',
             'birthplace' => 'required|string|max:255',
             'civil_status' => 'required|in:Single,Married,Divorced,Widowed',
@@ -163,11 +169,17 @@ class ApplicationController extends Controller
 
 
         ApplicationForm::create([
-            'user_id' => auth()->id(), 
+            'user_id' => auth()->id(),
             'first_name' => $request->first_name,
             'middle_name' => $request->middle_name,
             'last_name' => $request->last_name,
-            'address' => $request->address,
+            'house_no' => $request->house_no,
+            'street' => $request->street,
+            'barangay' => $request->barangay,
+            'city' => $request->city,
+            'province' => $request->province,
+            'zipcode' => $request->zipcode,
+            'country' => $request->country,
             'contact_number' => $request->contact_number,
 
             'birthdate' => $request->birthdate,
@@ -267,6 +279,19 @@ class ApplicationController extends Controller
             return redirect()->route('user.index')->with('success', 'Application submitted successfully!');
 
     }
+    public function updateDegree(Request $request, $id)
+{
+    $request->validate([
+        'degree_program' => 'required|string|max:255',
+    ]);
+
+    $application = ApplicationForm::findOrFail($id);
+    $application->degree_program = $request->degree_program;
+    $application->save();
+
+    return back()->with('success', 'Degree program updated successfully.');
+}
+
     public function view($id)
     {
         $application = ApplicationForm::findOrFail($id);

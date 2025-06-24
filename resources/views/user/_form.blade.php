@@ -70,7 +70,15 @@
 
 <div class="form-group">
     <label>2. Address</label>
-    <input type="text"  name="address" class="form-control"  value="{{  $application->address }}" >
+    <input type="text" name="address" class="form-control" value="{{ trim(
+        ($application->house_no ?? '') . ' ' .
+        ($application->street ?? '') . ' ' .
+        ($application->barangay ?? '') . ' ' .
+        ($application->city ?? '') . ' ' .
+        ($application->province ?? '') . ' ' .
+        ($application->zipcode ?? '') . ' ' .
+        ($application->country ?? '')
+    ) }}">
 </div>
 
 <div class="form-group">
@@ -558,4 +566,3 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
     </body>
-     

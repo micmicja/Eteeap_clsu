@@ -156,8 +156,30 @@
                 <textarea name="contact_number" class="form-control" required></textarea>
             </div>
             <div class="form-group">
-                <label for="address">2. Address and Zipcode</label>
-                <textarea name="address" class="form-control" required></textarea>
+                <label for="address">2. Address</label>
+                <div class="row">
+                    <div class="col-md-2 mb-2">
+                        <input type="text" name="house_no" class="form-control" placeholder="House No." required>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <input type="text" name="street" class="form-control" placeholder="Street/Subdivision" required>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <input type="text" name="barangay" class="form-control" placeholder="Barangay" required>
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <input type="text" name="city" class="form-control" placeholder="City/Municipality" required>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <input type="text" name="province" class="form-control" placeholder="Province" required>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <input type="text" name="zipcode" class="form-control" placeholder="Zipcode" required>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <input type="text" name="country" class="form-control" placeholder="Country" required>
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label for="birthdate">3. Birthdate</label>

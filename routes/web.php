@@ -21,6 +21,8 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\CredentialController;
+use App\Http\Controllers\Admin\ApplicantController;
+
 
 
 
@@ -199,5 +201,8 @@ Route::put('/schedule/reschedule/{id}', [InterviewScheduleController::class, 'up
     //credentials
     Route::get('/admin/credentials/view/{id}', [CredentialController::class, 'show'])->name('credentials.view');
 
-    
+    // Route::post('/admin/applicants/{id}/degree-program', [ApplicantController::class, 'updateDegreeProgram'])->name('admin.applicants.updateDegreeProgram');
+
+    Route::put('/admin/applications/{id}/update-degree', [\App\Http\Controllers\Admin\ApplicantController::class, 'updateDegree'])->name('applications.updateDegree');
+
     require __DIR__.'/auth.php';
