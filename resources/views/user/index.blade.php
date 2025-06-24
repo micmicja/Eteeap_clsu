@@ -1,4 +1,3 @@
-
 @include('partials.navbar')
 
 @extends('layouts.app')
@@ -96,10 +95,10 @@
                                         Edit
                                     </a>
                                     
-                                    <form action="{{ route('applications.destroy', $application->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Are you sure you want to delete this application?');">
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="showDeleteModal({{ $application->id }})">Delete</button>
+                                    <form id="delete-form-{{ $application->id }}" action="{{ route('applications.destroy', $application->id) }}" method="POST" style="display:none;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                     </form>
                                 </td>
                                 
@@ -115,5 +114,43 @@
     </div>
 </div>
 </div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this application?<br>
+        <strong>This action cannot be undone.</strong>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    let deleteId = null;
+    function showDeleteModal(id) {
+        deleteId = id;
+        $('#deleteModal').modal('show');
+    }
+    $('#confirmDeleteBtn').on('click', function() {
+        if(deleteId) {
+            document.getElementById('delete-form-' + deleteId).submit();
+        }
+    });
+</script>
 @include('partials.footer')
 @endsection
