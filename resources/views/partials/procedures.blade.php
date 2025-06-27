@@ -1,13 +1,16 @@
 <section id="procedures" class="py-5" style="position: relative; min-height: 100vh;">
 
  
-    <div style="
+   <div style="
       position: absolute;
       inset: 0;
       background: url('{{ asset('inspinia/img/landing/r.jpg') }}') no-repeat center center fixed;
       background-size: cover;
       background-attachment: fixed;
       background-blend-mode: overlay;
+      z-index: 0;
+    "></div>
+   
       z-index: 0;
     "></div>
   
@@ -19,13 +22,12 @@
       <div class="row mb-5">
         <div class="col-12 text-center">
           
-          <h2 class="font-bold text-uppercase text-white">Procedures in Applying for ETEEAP</h2>
+          <h2 class="font-weight-bold text-uppercase text-white" style="font-size: 2.0rem;">Procedures in Applying for ETEEAP</h2>
         </div>
       </div>
   
     
       <div class="row gy-5 gx-4 justify-content-center">
-  
         @foreach([
           ['Application Form', 'Secure ETEEAP application forms from the CLSU ETEEAP office or download from <a href="https://ched.gov.ph" target="_blank" class="text-primary text-decoration-none">ched.gov.ph</a>.'],
           ['Submit Requirements', 'Submit completed forms and documents for preliminary evaluation by the ETEEAP Director.'],
@@ -34,16 +36,13 @@
           ['Orientation Seminar', 'Attend the seminar and submit documents for evaluation by the assessment panel.'],
           ['Skills Demonstration', 'Demonstrate required skills at the worksite based on program requirements.']
         ] as $index => [$title, $description])
-        
-        <div class="col-12 col-md-6 col-lg-4">
+        <div class="col-12 col-md-6 col-lg-4 @if($index < 3) mb-5 mb-lg-4 @endif">
           <div class="procedure-card p-4 h-100">
             <h5 class="fw-bold mb-3">{{ $index + 1 }}. {{ $title }}</h5>
             <p class="mb-0">{!! $description !!}</p>
           </div>
         </div>
-        
         @endforeach
-  
       </div>
   
     </div>
@@ -97,7 +96,23 @@
     text-decoration: underline;
   }
   
-  
+  #procedures h2 {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+  }
+  @media (max-width: 992px) {
+    #procedures h2 {
+      font-size: 2rem;
+    }
+  }
+  @media (max-width: 576px) {
+    #procedures h2 {
+      font-size: 1.5rem;
+    }
+  }
   @media (max-width: 768px) {
     #procedures h2 {
       font-size: 2rem;

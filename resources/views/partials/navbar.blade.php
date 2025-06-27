@@ -62,27 +62,33 @@
                             </li>
                         @endif
                     @else
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#" id="navbarDropdown" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false" style="white-space: nowrap;">
-                                <i class="fas fa-user me-2"></i> 
-                                <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
+                        <li class="nav-item dropdown w-100 w-md-auto text-center text-md-start @if(request()->routeIs('user.index') || request()->routeIs('profile.edit')) active-nav @endif">
+                            <a class="nav-link dropdown-toggle text-white fw-bold d-flex align-items-center justify-content-center justify-content-md-start px-4 py-3 w-100 @if(request()->routeIs('user.index') || request()->routeIs('profile.edit')) active-nav @endif"
+                               href="#" id="navbarDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false"
+                               style="white-space: nowrap; border-radius: 12px; font-size: 1.18rem; min-height: 56px; min-width: 180px; transition: background 0.2s, color 0.2s; position: relative;">
+                                <i class="fas fa-user-circle me-2" style="font-size: 1.7rem;"></i>
+                                <span class="d-none d-md-inline" style="font-weight: 700; font-size: 1.08rem;">{{ Str::limit(Auth::user()->name, 18) }}</span>
+                                @if(request()->routeIs('user.index') || request()->routeIs('profile.edit'))
+                                    <span class="nav-indicator"></span>
+                                @endif
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm mt-2 w-100 w-md-auto" aria-labelledby="navbarDropdown" style="min-width: 140px; border-radius: 16px; box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);">
                                 <li>
-                                    <a class="dropdown-item" href="{{ route('user.index', Auth::user()->id) }}">
-                                        <i class="fas fa-file-alt me-2"></i> Application Form
+                                    <a class="dropdown-item d-flex align-items-center py-3" href="{{ route('user.index', Auth::user()->id) }}">
+                                        <i class="fas fa-file-alt me-2 text-success"></i> Application Form
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="{{ route('profile.edit') }}">
-                                        <i class="fas fa-user-edit me-2"></i> Edit Profile
+                                    <a class="dropdown-item d-flex align-items-center py-3" href="{{ route('profile.edit') }}">
+                                        <i class="fas fa-user-edit me-2 text-primary"></i> Edit Profile
                                     </a>
                                 </li>
+                                <li><hr class="dropdown-divider my-1"></li>
                                 <li>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item d-flex align-items-center py-3 text-danger" href="{{ route('logout') }}"
                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                       <i class="fas fa-sign-out-alt me-2"></i> Logout
+                                        <i class="fas fa-sign-out-alt me-2"></i> Logout
                                     </a>
                                 </li>
                             </ul>
@@ -175,6 +181,55 @@
         .dropdown-menu {
             max-height: 180px;
             font-size: 0.98rem;
+        }
+    }
+    .dropdown-menu {
+        min-width: 140px;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+        padding: 0.5rem 0.25rem;
+        width: 100vw;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        right: auto !important;
+        max-width: 400px;
+        background: rgba(151, 151, 158, 0.75) !important;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 2px solid #fff !important;
+    }
+    .dropdown-menu .dropdown-item {
+        border-radius: 8px;
+        transition: background 0.2s, color 0.2s;
+        font-weight: 500;
+        font-size: 1.08rem;
+        padding-left: 1.5rem;
+        padding-right: 1rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+    .dropdown-menu .dropdown-item:active, .dropdown-menu .dropdown-item:focus {
+        background-color: #fffdfb2e;
+        color: #087a29;
+    }
+    .dropdown-menu .dropdown-divider {
+        margin: 0.25rem 0;
+    }
+    @media (min-width: 768px) {
+        .nav-item.dropdown {
+            width: auto;
+            text-align: left;
+        }
+        .nav-link.dropdown-toggle {
+            width: auto;
+            justify-content: flex-start;
+        }
+        .dropdown-menu {
+            width: auto;
+            min-width: 240px;
+            left: auto !important;
+            transform: none !important;
+            max-width: 320px;
         }
     }
 </style>
