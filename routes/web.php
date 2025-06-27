@@ -166,6 +166,13 @@ Route::put('/schedule/reschedule/{id}', [InterviewScheduleController::class, 'up
     Route::get('/admin/users', [AdminController::class, 'index'])->name('admin.users');
     Route::get('/admin/users/edit/{id}', [AdminController::class, 'edit'])->name('admin.users.edit');
     Route::put('/admin/users/update/{id}', [AdminController::class, 'update'])->name('admin.users.update');
+    
+    // Export routes
+    Route::get('/applications/export/excel', [AdminController::class, 'exportExcel'])->name('admin.applications.exportExcel');
+    Route::get('/applications/export', [AdminController::class, 'exportAll'])->name('admin.application.export');
+    Route::get('/applications/export/pending', [AdminController::class, 'exportPending'])->name('admin.application.export.pending');
+    Route::get('/applications/export/accepted', [AdminController::class, 'exportAccepted'])->name('admin.application.export.accepted');
+    Route::get('/applications/export/rejected', [AdminController::class, 'exportRejected'])->name('admin.application.export.rejected');
     });
 
     // Interview schedule
@@ -206,3 +213,5 @@ Route::put('/schedule/reschedule/{id}', [InterviewScheduleController::class, 'up
     Route::put('/admin/applications/{id}/update-degree', [\App\Http\Controllers\Admin\ApplicantController::class, 'updateDegree'])->name('applications.updateDegree');
 
     require __DIR__.'/auth.php';
+
+    Route::post('/admin/accepted-applicants/approve', [AcceptedApplicantsController::class, 'approve'])->name('accepted_applicants.approve');
