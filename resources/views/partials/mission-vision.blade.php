@@ -1,6 +1,16 @@
-<section id="mission-vision" class="gray-section d-flex align-items-center" 
-    style="min-height: 100vh; position: relative; padding: 0;">
 
+<br>
+
+
+<div style="
+      position: absolute;
+      inset: 0;
+      background: url('{{ asset('inspinia/img/landing/r.jpg') }}') no-repeat center center fixed;
+      background-size: cover;
+      background-attachment: fixed;
+      background-blend-mode: overlay;
+      z-index: 0;
+    "></div>
 
 
     <div class="container position-relative py-5" style="z-index: 2;">
@@ -10,7 +20,7 @@
 
         <div class="row mb-5">
             <div class="col-12 text-center">
-                <h2 class="font-bold text-uppercase text-white" style="font-size: 2.5rem;">Mission and Vision</h2>
+                <h2 class="font-weight-bold text-uppercase text-white" style="font-size: 2.0rem;">Mission and Vision</h2>
                 <p class="text-white fs-5" style="font-size: 1.25rem;">The ETEEAP Program's foundation is guided by the following mission and vision:</p>
             </div>
         </div>
@@ -40,16 +50,6 @@
         </div>
 
     </div>
-
-    <div style="
-      position: absolute;
-      inset: 0;
-      background: url('{{ asset('inspinia/img/landing/r.jpg') }}') no-repeat center center fixed;
-      background-size: cover;
-      background-attachment: fixed;
-      background-blend-mode: overlay;
-      z-index: 0;
-    "></div>
 </section>
 
 
