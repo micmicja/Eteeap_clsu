@@ -38,4 +38,25 @@ class AcceptedApplicantsController extends Controller
         }
         return redirect()->back()->with('success', 'Degree program changed from "' . $oldCourse . '" to "' . $degreeProgram . '" successfully.');
     }
+
+    /**
+     * Approve an application with a selected course.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function approve(Request $request)
+    {
+        $request->validate([
+            'application_id' => 'required|exists:application_forms,i1d',
+            'course' => 'required',
+        ]);
+
+        $application = ApplicationForm::find($request->application_id);
+        $application->status = 'Approved';
+        $application->degree_program = $request->course;
+        $application->save();
+
+        return redirect()->back()->with('success', 'Application approved successfully.');
+    }
 }

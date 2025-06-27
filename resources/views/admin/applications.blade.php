@@ -28,6 +28,31 @@
                         <button class="btn btn-danger" onclick="showTab('rejected')">Rejected</button>
                     </div>
                     
+                    <!-- Export Buttons -->
+                 <div class="btn-group mb-3 float-end">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-download"></i> Export Applications
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ route('admin.application.export') }}">
+                                    <i class="fa fa-file-excel-o"></i> Export All Applications
+                                </a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ route('admin.application.export.pending') }}">
+                                    <i class="fa fa-clock-o text-primary"></i> Export Pending Applications
+                                </a></li>
+                                <li><a class="dropdown-item" href="{{ route('admin.application.export.accepted') }}">
+                                    <i class="fa fa-check text-success"></i> Export Accepted Applications
+                                </a></li>
+                                <li><a class="dropdown-item" href="{{ route('admin.application.export.rejected') }}">
+                                    <i class="fa fa-times text-danger"></i> Export Rejected Applications
+                                </a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    
                     <!-- Pending Applications -->
                     <div id="pending" class="tab-content">
                         <h4>Pending Applications</h4>
@@ -48,28 +73,52 @@
                                         <td><span class="label label-primary">{{ $application->status }}</span></td>
                                         <td>
                                             <a href="{{ route('admin.application.view', $application->id) }}" class="btn btn-info btn-xs">View</a>
-                                            <form action="{{ route('admin.application.accept', $application->id) }}" method="POST" style="display:inline;">
-                                                @csrf @method('PUT')
-                                                <button type="submit" class="btn btn-success btn-xs">Accept</button>
-                                            </form>
-                                           <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#rejectModal">
+                                            <button type="button" class="btn btn-success btn-xs" data-bs-toggle="modal" data-bs-target="#acceptModal-{{ $application->id }}">
+                                                Accept
+                                            </button>
+                                           <button type="button" class="btn btn-danger btn-xs" data-bs-toggle="modal" data-bs-target="#rejectModal-{{ $application->id }}">
     Reject
 </button>
 
+<!-- Accept Modal -->
+<div class="modal fade" id="acceptModal-{{ $application->id }}" tabindex="-1" aria-labelledby="acceptModalLabel-{{ $application->id }}" aria-hidden="true">
+  <div class="modal-dialog">
+    <form action="{{ route('admin.application.accept', $application->id) }}" method="POST">
+      @csrf
+      @method('PUT')
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="acceptModalLabel-{{ $application->id }}">Accept Application</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to accept this application?<br>
+          <strong>Applicant:</strong> {{ $application->first_name }} {{ $application->middle_name }} {{ $application->last_name }}<br>
+          <strong>This action will notify the applicant via email.</strong>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-success">Confirm Accept</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
 <!-- Reject Modal -->
-<div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+<div class="modal fade" id="rejectModal-{{ $application->id }}" tabindex="-1" aria-labelledby="rejectModalLabel-{{ $application->id }}" aria-hidden="true">
   <div class="modal-dialog">
     <form id="rejectForm" action="{{ route('assessor.application.reject', $application->id) }}" method="POST">
       @csrf
       @method('PUT')
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="rejectModalLabel">Reject Application</h5>
+          <h5 class="modal-title" id="rejectModalLabel-{{ $application->id }}">Reject Application</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <label for="remarks" class="form-label">Please enter remarks for rejection:</label>
-          <textarea class="form-control" id="remarks" name="remarks" required></textarea>
+          <label for="remarks-{{ $application->id }}" class="form-label">Please enter remarks for rejection:</label>
+          <textarea class="form-control" id="remarks-{{ $application->id }}" name="remarks" required></textarea>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

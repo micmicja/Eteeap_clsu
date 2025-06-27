@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ApplicationRejected;
 use App\Models\User;
 use App\Models\InterviewSchedule;
+use App\Exports\ApplicationsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
 {
@@ -177,6 +179,31 @@ public function reschedule($id)
 public function adminHome()
 {
     return view('admin.adminhome');  
+}
+
+public function exportExcel()
+{
+    return Excel::download(new ApplicationsExport, 'applications.xlsx');
+}
+
+public function exportAll()
+{
+    return Excel::download(new ApplicationsExport(), 'all_applications.xlsx');
+}
+
+public function exportPending()
+{
+    return Excel::download(new ApplicationsExport('pending'), 'pending_applications.xlsx');
+}
+
+public function exportAccepted()
+{
+    return Excel::download(new ApplicationsExport('accepted'), 'accepted_applications.xlsx');
+}
+
+public function exportRejected()
+{
+    return Excel::download(new ApplicationsExport('rejected'), 'rejected_applications.xlsx');
 }
    
 }

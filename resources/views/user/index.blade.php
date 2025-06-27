@@ -33,80 +33,121 @@
                     <img src="{{ asset('images/eteeap.png') }}" alt="Logo" width="200" class="">
                 </div>
             </div>
-        </form>
-        <h2 class="text-center mb-4" style="color: #fdfffd; font-size: 2rem;">My Applications</h2>
-        @if(session('success'))
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script>
-            Swal.fire({
-                toast: true,
-                position: 'top-end',
-                icon: 'success',
-                title: {!! json_encode(session('success')) !!},
-                showConfirmButton: false,
-                timer: 5000,
-                timerProgressBar: true,
-                customClass: {
-                    popup: 'p-2 text-sm' // smaller padding & font
-                }
-            });
-        </script>
-        @endif
-        @if (request()->is('user/index*'))
-            <div class="text-left mt-3">
-                <a href="{{ url('/') }}" class="btn btn-primary"><i class="fas fa-arrow-left me-1"></i> Back to Home</a>
-            </div>
-        @endif
-        <div class="card shadow-lg mt-4" style="background: rgba(255,255,255,0.85); border-radius: 1rem; max-width: 900px; margin: 2rem auto; font-size: 1.05rem; border: 2px solid #e0e4ea; backdrop-filter: blur(10px); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);">
-            <div class="card-body p-4 p-md-5">
-                <h3 class="card-title mb-4" style="font-weight: bold; color: #2d3e50;">Hello, {{ Auth::user()->name }}</h3>
-                @if($applications->count() > 0)
-                    <div class="table-responsive">
-                        <table class="table table-hover table-bordered align-middle" style="background: #fff; font-size: 1.05rem;">
-                            <thead class="thead-dark" style="background: #2d3e50; color: #fff;">
-                                <tr>
-                                    <th class="text-center">Application ID</th>
-                                    <th class="text-center">Your Full Name</th>
-                                    <th class="text-center">Contact Number</th>
-                                    <th class="text-center">Submitted On</th>
-                                    <th class="text-center">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($applications as $application)
-                                    <tr>
-                                        <td style="font-weight: 500;">{{ $application->id }}</td>
-                                        <td>{{ $application->first_name }} {{ $application->middle_name ?? '' }} {{ $application->last_name }}</td>
-                                        <td>{{ $application->contact_number }}</td>
-                                        <td>{{ $application->created_at->format('M d, Y') }}</td>
-                                        <td>
-                                            <div class="d-flex flex-wrap gap-2">
-                                                <div class="d-grid" style="grid-template-columns: repeat(3, 1fr); display: grid; min-width: 260px; gap: 0.5rem;">
-                                                    <a href="{{ route('application.view', $application->id) }}" class="btn btn-info btn-sm" style="min-width: 80px;">
-                                                        View
-                                                    </a>
-                                                    <a href="{{ route('applications.edit', $application->id) }}" class="btn btn-warning btn-sm" style="min-width: 80px;">
-                                                        Edit
-                                                    </a>
-                                                    <form action="{{ route('applications.destroy', $application->id) }}" method="POST" style="display: contents;" onsubmit="return confirm('Are you sure you want to delete this application?');">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm w-100" style="min-width: 80px;">Delete</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                @else
-                    <p class="text-danger" style="font-size: 1.1rem; font-weight: 500;">You have not submitted any applications yet.</p>
-                @endif
-            </div>
+            
+          
+    <h2 style="color: #fdfffd; font-size: 2rem;">My Applications</h2>
+
+
+    @if(session('success'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'success',
+            title: {!! json_encode(session('success')) !!},
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true,
+            customClass: {
+                popup: 'p-2 text-sm' // smaller padding & font
+            }
+        });
+    </script>
+    @endif
+    
+    
+    @if (request()->is('user/index*'))
+        <div class="text-left mt-3">
+            <a href="{{ url('/') }}" class="btn btn-primary">Back to Home</a>
+        </div>
+    @endif
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Hello, {{ Auth::user()->name }}</h5>
+
+            @if($applications->count() > 0)
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Application ID</th>
+                            <th>Your Full Name</th>
+                            <th>Contact Number</th>
+                            <th>Submitted On</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($applications as $application)
+                            <tr>
+                                <td>{{ $application->id }}</td>
+                                <td>{{ $application->first_name }} {{ $application->middle_name ?? '' }} {{ $application->last_name }}</td>
+                                <td>{{ $application->contact_number }}</td>
+                                <td>{{ $application->created_at->format('M d, Y') }}</td>
+                                <td>
+                                    <a href="{{ route('application.view', $application->id) }}" class="btn btn-info btn-sm">
+                                        View
+                                    </a>
+                                    <a href="{{ route('applications.edit', $application->id) }}" class="btn btn-warning btn-sm">
+                                        Edit
+                                    </a>
+                                    
+                                    <form action="{{ route('applications.destroy', $application->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Are you sure you want to delete this application?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+                                </td>
+                                
+                                
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @else
+                <p class="text-danger">You have not submitted any applications yet.</p>
+            @endif
         </div>
     </div>
 </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this application?<br>
+        <strong>This action cannot be undone.</strong>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    let deleteId = null;
+    function showDeleteModal(id) {
+        deleteId = id;
+        $('#deleteModal').modal('show');
+    }
+    $('#confirmDeleteBtn').on('click', function() {
+        if(deleteId) {
+            document.getElementById('delete-form-' + deleteId).submit();
+        }
+    });
+</script>
 @include('partials.footer')
 @endsection
