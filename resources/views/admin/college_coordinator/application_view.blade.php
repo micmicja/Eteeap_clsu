@@ -128,22 +128,22 @@
 
                             <div class="form-group">
                                 <label>Degree Program Field:</label>
-                                <input type="text" class="form-control" value="{{ $application->degree_program_field }}" readonly>
+                                <input type="text" class="form-control" value="{{ $application->displayField('degree_program_field') }}" readonly>
                             </div>
 
                             <div class="form-group">
                                 <label>First Priority:</label>
-                                <input type="text" class="form-control" value="{{ $application->first_priority }}" readonly>
+                                <input type="text" class="form-control" value="{{ $application->displayField('first_priority') }}" readonly>
                             </div>
                             
                             <div class="form-group">
                                 <label>Second Priority:</label>
-                                <input type="text" class="form-control" value="{{ $application->second_priority }}" readonly>
+                                <input type="text" class="form-control" value="{{ $application->displayField('second_priority') }}" readonly>
                             </div>
 
                             <div class="form-group">
                                 <label>Third Priority:</label>
-                                <input type="text" class="form-control" value="{{ $application->third_priority }}" readonly>
+                                <input type="text" class="form-control" value="{{ $application->displayField('third_priority') }}" readonly>
                             </div>
 
                             <div class="form-group">
@@ -188,18 +188,7 @@
                                         <td> <input type="text" name="inclusive_dates" class="form-control" value="{{ $application->inclusive_dates }}" readonly></td>
                                         
                                     </tr>
-                                    <tr>
-                                        <td><input type="text" name="degree_program_field" class="form-control" value="{{ $application->degree_program_field }}" readonly></td>
-                                        <td><input type="text" name="school_address" class="form-control" value="{{ $application->school_address }}" readonly></td>
-                                        <td> <input type="text" name="inclusive_dates" class="form-control" value="{{ $application->inclusive_dates }}" readonly></td>
-                                      
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" name="degree_program_field" class="form-control" value="{{ $application->degree_program_field }}" readonly></td>
-                                        <td><input type="text" name="school_address" class="form-control" value="{{ $application->school_address }}" readonly></td>
-                                        <td> <input type="text" name="inclusive_dates" class="form-control" value="{{ $application->inclusive_dates }}" readonly></td>
-                                      
-                                    </tr>
+                                   
                                   
                                     
                                 </tbody>

@@ -10,11 +10,11 @@
   
 
         <!-- Register Form Wrapper with Animation -->
-        <div class="flex items-center justify-center px-4 py-8 ">
+         <div class="flex items-center justify-center px-4 py-8  ">
             <div class="w-full max-w-md md:max-w-lg space-y-6 bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg">
-                
+          
                 <!-- Logo -->
-                               <div class="flex justify-center mb-6">
+                       <div class="flex justify-center mb-6">
                     <img src="{{ asset('images/cl.png') }}" alt="Logo" class="h-28 w-auto drop-shadow-lg ">
                 </div>
                 <!-- Welcome Text -->

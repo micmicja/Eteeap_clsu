@@ -21,7 +21,25 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                $user = Auth::guard($guard)->user();
+                
+                // Role-based redirection
+                if ($user->role == 2) {
+                    // Admin
+                    return redirect()->route('admin.applications');
+                } elseif ($user->role == 3) {
+                    // Assessor
+                    return redirect()->route('assessor.dashboard');
+                } elseif ($user->role == 4) {
+                    // Department Coordinator
+                    return redirect()->route('department.dashboard');
+                } elseif ($user->role == 5) {
+                    // College Coordinator
+                    return redirect()->route('college.dashboard');
+                }
+                
+                // Default user redirect
+                return redirect()->route('homepage');
             }
         }
 

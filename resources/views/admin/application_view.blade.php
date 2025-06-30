@@ -130,22 +130,22 @@
 
                             <div class="form-group">
                                 <label>Degree Program Field:</label>
-                                <input type="text" class="form-control" value="{{ $application->degree_program_field }}" readonly>
+                                <input type="text" class="form-control" value="{{ $application->displayField('degree_program_field') }}" readonly>
                             </div>
 
                             <div class="form-group">
                                 <label>First Priority:</label>
-                                <input type="text" class="form-control" value="{{ $application->first_priority }}" readonly>
+                                <input type="text" class="form-control" value="{{ $application->displayField('first_priority') }}" readonly>
                             </div>
                             
                             <div class="form-group">
                                 <label>Second Priority:</label>
-                                <input type="text" class="form-control" value="{{ $application->second_priority }}" readonly>
+                                <input type="text" class="form-control" value="{{ $application->displayField('second_priority') }}" readonly>
                             </div>
 
                             <div class="form-group">
                                 <label>Third Priority:</label>
-                                <input type="text" class="form-control" value="{{ $application->third_priority }}" readonly>
+                                <input type="text" class="form-control" value="{{ $application->displayField('third_priority') }}" readonly>
                             </div>
 
                             <div class="form-group">
@@ -185,21 +185,21 @@
                                 </thead>
                                 <tbody id="educationTable">
                                     <tr>
-                                        <td><input type="text" name="degree_program" class="form-control"value="{{ $application->degree_program }}" readonly></td>
-                                        <td><input type="text" name="school_address" class="form-control" value="{{ $application->school_address }}" readonly></td>
-                                        <td> <input type="text" name="inclusive_dates" class="form-control" value="{{ $application->inclusive_dates }}" readonly></td>
+                                        <td><input type="text" name="degree_program" class="form-control" value="{{ $application->displayField('degree_program') }}" readonly></td>
+                                        <td><input type="text" name="school_address" class="form-control" value="{{ $application->displayField('school_address') }}" readonly></td>
+                                        <td> <input type="text" name="inclusive_dates" class="form-control" value="{{ $application->displayField('inclusive_dates') }}" readonly></td>
                                         
                                     </tr>
                                     <tr>
                                         <td><input type="text" name="degree_program_field" class="form-control" value="{{ $application->degree_program_field }}" readonly></td>
-                                        <td><input type="text" name="school_address" class="form-control" value="{{ $application->school_address }}" readonly></td>
-                                        <td> <input type="text" name="inclusive_dates" class="form-control" value="{{ $application->inclusive_dates }}" readonly></td>
+                                        <td><input type="text" name="school_address" class="form-control" value="{{ $application->displayField('school_address') }}" readonly></td>
+                                        <td> <input type="text" name="inclusive_dates" class="form-control" value="{{ $application->displayField('inclusive_dates') }}" readonly></td>
                                       
                                     </tr>
                                     <tr>
                                         <td><input type="text" name="degree_program_field" class="form-control" value="{{ $application->degree_program_field }}" readonly></td>
-                                        <td><input type="text" name="school_address" class="form-control" value="{{ $application->school_address }}" readonly></td>
-                                        <td> <input type="text" name="inclusive_dates" class="form-control" value="{{ $application->inclusive_dates }}" readonly></td>
+                                        <td><input type="text" name="school_address" class="form-control" value="{{ $application->displayField('school_address') }}" readonly></td>
+                                        <td> <input type="text" name="inclusive_dates" class="form-control" value="{{ $application->displayField('inclusive_dates') }}" readonly></td>
                                       
                                     </tr>
                                   
@@ -222,9 +222,9 @@
                                 </thead>
                                 <tbody id="educationTable">
                                     <tr>
-                                        <td><input type="text" name="training_program" class="form-control" value="{{ $application->training_program }}" readonly></td>
-                                        <td><input type="text" name="certificate_obtained" class="form-control" value="{{ $application->certificate_obtained }}" readonly></td>
-                                        <td>  <input type="text" name="dates_attendance" class="form-control" value="{{ $application->dates_attendance }}" readonly></td>
+                                        <td><input type="text" name="training_program" class="form-control" value="{{ $application->displayField('training_program') }}" readonly></td>
+                                        <td><input type="text" name="certificate_obtained" class="form-control" value="{{ $application->displayField('certificate_obtained') }}" readonly></td>
+                                        <td>  <input type="text" name="dates_attendance" class="form-control" value="{{ $application->displayField('dates_attendance') }}" readonly></td>
                                      
                                     </tr>
                                     
@@ -246,10 +246,10 @@
                                 </thead>
                                 <tbody id="educationTable">
                                     <tr>
-                                        <td><input type="text" name="certification_examination" class="form-control" value="{{ $application->certification_examination }}" readonly></td>
-                                        <td><input type="text" name="certifying_agency" class="form-control" value="{{ $application->certifying_agency }}" readonly></td>
-                                        <td><input type="date" name="date_certified" class="form-control" value="{{ $application->date_certified }}" readonly></td>
-                                        <td><input type="text" name="rating" class="form-control" value="{{ $application->rating }}" readonly></td>
+                                        <td><input type="text" name="certification_examination" class="form-control" value="{{ $application->displayField('certification_examination') }}" readonly></td>
+                                        <td><input type="text" name="certifying_agency" class="form-control" value="{{ $application->displayField('certifying_agency') }}" readonly></td>
+                                        <td><input type="date" name="date_certified" class="form-control" value="{{ $application->displayField('date_certified') }}" readonly></td>
+                                        <td><input type="text" name="rating" class="form-control" value="{{ $application->displayField('rating') }}" readonly></td>
                                     </tr>
   
                                 </tbody>
@@ -317,9 +317,9 @@
                                 </thead>
                                 <tbody id="educationTable">
                                     <tr>
-                                        <td><input type="text" name="awards_conferred" class="form-control" value="{{ $application->awards_conferred }}" readonly></td>
-                                        <td><input type="text" name="conferring_organizations" class="form-control" value="{{ $application->conferring_organizations }}" readonly></td>
-                                        <td><input type="date" name="date_awarded" class="form-control" value="{{ $application->date_awarded }}" readonly></td>
+                                        <td><input type="text" name="awards_conferred" class="form-control" value="{{ $application->displayField('awards_conferred') }}" readonly></td>
+                                        <td><input type="text" name="conferring_organizations" class="form-control" value="{{ $application->displayField('conferring_organizations') }}" readonly></td>
+                                        <td><input type="date" name="date_awarded" class="form-control" value="{{ $application->displayField('date_awarded') }}" readonly></td>
                                        
                                     </tr>
                                     
@@ -339,9 +339,9 @@
                                 </thead>
                                 <tbody id="educationTable">
                                     <tr>
-                                        <td><input type="text" name="community_awards_conferred" class="form-control" value="{{ $application->community_awards_conferred }}" readonly></td>
-                                        <td><input type="text" name="community_conferring_organizations" class="form-control" value="{{ $application->community_conferring_organizations }}" readonly></td>
-                                        <td><input type="date" name="community_date_awarded" class="form-control" value="{{ $application->community_date_awarded }}" readonly></td>
+                                        <td><input type="text" name="community_awards_conferred" class="form-control" value="{{ $application->displayField('community_awards_conferred') }}" readonly></td>
+                                        <td><input type="text" name="community_conferring_organizations" class="form-control" value="{{ $application->displayField('community_conferring_organizations') }}" readonly></td>
+                                        <td><input type="date" name="community_date_awarded" class="form-control" value="{{ $application->displayField('community_date_awarded') }}" readonly></td>
                                        
                                     </tr>
                                 
@@ -361,9 +361,9 @@
                                 </thead>
                                 <tbody id="educationTable">
                                     <tr>
-                                        <td><input type="text" name="work_awards_conferred" class="form-control" value="{{ $application->work_awards_conferred }}" readonly></td>
-                                        <td><input type="text" name="work_community_conferring_organizations" class="form-control" value="{{ $application->work_community_conferring_organizations }}" readonly></td>
-                                        <td><input type="date" name="work_community_date_awarded" class="form-control" value="{{ $application->work_community_date_awarded }}" readonly></td>
+                                        <td><input type="text" name="work_awards_conferred" class="form-control" value="{{ $application->displayField('work_awards_conferred') }}" readonly></td>
+                                        <td><input type="text" name="work_community_conferring_organizations" class="form-control" value="{{ $application->displayField('work_community_conferring_organizations') }}" readonly></td>
+                                        <td><input type="date" name="work_community_date_awarded" class="form-control" value="{{ $application->displayField('work_community_date_awarded') }}" readonly></td>
                                        
                                     </tr>
                            

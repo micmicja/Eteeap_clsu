@@ -83,6 +83,81 @@ class ApplicationForm extends Model
       'community_tax_certificate',
       'issued_on', 'issued_at',
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'degree_program' => 'array',
+        'school_address' => 'array', 
+        'inclusive_dates' => 'array',
+        'training_program' => 'array',
+        'certificate_obtained' => 'array',
+        'dates_attendance' => 'array',
+        'certification_examination' => 'array',
+        'certifying_agency' => 'array',
+        'date_certified' => 'array',
+        'rating' => 'array',
+        'awards_conferred' => 'array',
+        'conferring_organizations' => 'array',
+        'date_awarded' => 'array',
+        'community_awards_conferred' => 'array',
+        'community_conferring_organizations' => 'array',
+        'community_date_awarded' => 'array',
+        'work_awards_conferred' => 'array',
+        'work_community_conferring_organizations' => 'array',
+        'work_community_date_awarded' => 'array',
+    ];
+    
+    /**
+     * Safe method to display array or string fields
+     */
+    public function displayField($field)
+    {
+        $value = $this->getAttribute($field);
+        
+        // Handle null or empty values
+        if (empty($value)) {
+            return '';
+        }
+        
+        // If it's already a string and not JSON, return it
+        if (is_string($value) && !$this->isJson($value)) {
+            return $value;
+        }
+        
+        // If it's a string that contains JSON, decode it
+        if (is_string($value) && $this->isJson($value)) {
+            $decoded = json_decode($value, true);
+            if (is_array($decoded)) {
+                return implode(', ', array_filter(array_map('strval', $decoded)));
+            }
+        }
+        
+        // If it's an array, join it
+        if (is_array($value)) {
+            return implode(', ', array_filter(array_map('strval', $value)));
+        }
+        
+        // Fallback to string conversion
+        return (string) $value;
+    }
+    
+    /**
+     * Check if a string is valid JSON
+     */
+    private function isJson($string)
+    {
+        if (!is_string($string)) {
+            return false;
+        }
+        
+        json_decode($string);
+        return json_last_error() === JSON_ERROR_NONE;
+    }
+    
     public function user()
     {
         return $this->belongsTo(User::class);

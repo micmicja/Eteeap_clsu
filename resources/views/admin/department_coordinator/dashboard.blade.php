@@ -44,7 +44,7 @@
         <div class="modal-body">
           Are you sure you want to accept this application?<br>
           <strong>Applicant:</strong> {{ $application->first_name }} {{ $application->middle_name }} {{ $application->last_name }}<br>
-          <strong>This action will notify the applicant via email.</strong>
+        
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

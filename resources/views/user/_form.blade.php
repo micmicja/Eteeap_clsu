@@ -93,11 +93,11 @@
 
 <div class="form-group">
     <label for="civil_status">5. Civil Status</label>
-    <select class="form-control" required>
-        <option name="civil_status" value="Single" {{ $application->civil_status == 'Single' ? 'selected' : '' }}>Single</option>
-        <option name="civil_status" value="Married" {{ $application->civil_status == 'Married' ? 'selected' : '' }}>Married</option>
-        <option name="civil_status" value="Divorced" {{ $application->civil_status == 'Divorced' ? 'selected' : '' }}>Divorced</option>
-        <option name="civil_status" value="Widowed" {{ $application->civil_status == 'Widowed' ? 'selected' : '' }}>Widowed</option>
+    <select name="civil_status" class="form-control" required>
+        <option value="Single" {{ $application->civil_status == 'Single' ? 'selected' : '' }}>Single</option>
+        <option value="Married" {{ $application->civil_status == 'Married' ? 'selected' : '' }}>Married</option>
+        <option value="Divorced" {{ $application->civil_status == 'Divorced' ? 'selected' : '' }}>Divorced</option>
+        <option value="Widowed" {{ $application->civil_status == 'Widowed' ? 'selected' : '' }}>Widowed</option>
     </select>
 </div>
 
@@ -119,22 +119,22 @@
 
 <div class="form-group">
     <label>Degree Program Field:</label>
-    <input type="text" name="degree_program_field" class="form-control"  value="{{ $application->degree_program_field }}">
+    <input type="text" name="degree_program_field" class="form-control"  value="{{ $application->displayField('degree_program_field') }}">
 </div>
 
 <div class="form-group">
     <label>First Priority:</label>
-    <input type="text" name="first_priority" class="form-control"  value="{{ $application->first_priority }}">
+    <input type="text" name="first_priority" class="form-control"  value="{{ $application->displayField('first_priority') }}">
 </div>
 
 <div class="form-group">
     <label>Second Priority:</label>
-    <input type="text" name="second_priority" class="form-control" value="{{ $application->second_priority }}">
+    <input type="text" name="second_priority" class="form-control" value="{{ $application->displayField('second_priority') }}">
 </div>
 
 <div class="form-group">
     <label>Third Priority:</label>
-    <input type="text" name="third_priority" class="form-control" value="{{$application->third_priority }}">
+    <input type="text" name="third_priority" class="form-control" value="{{ $application->displayField('third_priority') }}">
 </div>
 
 <div class="form-group">

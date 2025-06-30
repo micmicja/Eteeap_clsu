@@ -143,22 +143,22 @@
                             
                             <div class="form-group">
                                 <label>Degree Program Field:</label>
-                                <input type="text" name="degree_program_field" class="form-control"  value="{{ $application->degree_program_field }}"readonly>
+                                <input type="text" name="degree_program_field" class="form-control"  value="{{ $application->displayField('degree_program_field') }}" readonly>
                             </div>
                             
                             <div class="form-group">
                                 <label>First Priority:</label>
-                                <input type="text" name="first_priority" class="form-control"  value="{{ $application->first_priority }}"readonly>
+                                <input type="text" name="first_priority" class="form-control"  value="{{ $application->displayField('first_priority') }}" readonly>
                             </div>
                             
                             <div class="form-group">
                                 <label>Second Priority:</label>
-                                <input type="text" name="second_priority" class="form-control" value="{{ $application->second_priority }}"readonly>
+                                <input type="text" name="second_priority" class="form-control" value="{{ $application->displayField('second_priority') }}" readonly>
                             </div>
                             
                             <div class="form-group">
                                 <label>Third Priority:</label>
-                                <input type="text" name="third_priority" class="form-control" value="{{$application->third_priority }}"readonly>
+                                <input type="text" name="third_priority" class="form-control" value="{{ $application->displayField('third_priority') }}" readonly>
                             </div>
                             
                             <div class="form-group">

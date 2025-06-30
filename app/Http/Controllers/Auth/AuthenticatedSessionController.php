@@ -27,49 +27,54 @@ class AuthenticatedSessionController extends Controller
             'password' => 'required',
         ]);
 
-        if (!Auth::attempt($request->only('email', 'password'))) {
+        if (!Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
             return back()->withErrors([
                 'email' => 'The provided credentials do not match our records.',
-            ]);
+            ])->onlyInput('email');
         }
 
+        // Regenerate session to prevent session fixation attacks
         $request->session()->regenerate();
 
-        
         $user = Auth::user();
 
-       
-        if ($user->role == 2) {
-          
-            return redirect()->route('admin.applications'); 
-        } elseif ($user->role == 3) {
-           
-            return redirect()->route('assessor.dashboard');
-        } elseif ($user->role == 4) {
-          
-            return redirect()->route('department.dashboard');
-        } elseif ($user->role == 5) {
-           
-            return redirect()->route('college.dashboard');
-        }
+        // Clear any intended URL to prevent conflicts
+        $request->session()->forget('url.intended');
 
-       
-        return redirect()->route('homepage'); 
+        // Role-based redirection with explicit route redirection
+        switch ($user->role) {
+            case 2: // Admin
+                return redirect()->intended(route('admin.applications'));
+            case 3: // Assessor
+                return redirect()->intended(route('assessor.dashboard'));
+            case 4: // Department Coordinator
+                return redirect()->intended(route('department.dashboard'));
+            case 5: // College Coordinator
+                return redirect()->intended(route('college.dashboard'));
+            default: // Regular user
+                return redirect()->intended(route('homepage'));
+        }
     }
 
     
     public function destroy(Request $request): RedirectResponse
     {
-       
+        // Store user role before logout for potential redirect logic
+        $userRole = Auth::user()->role ?? null;
+        
+        // Logout the user
         Auth::guard('web')->logout();
         
-      
+        // Invalidate the session to clear all session data
         $request->session()->invalidate();
         
-      
+        // Regenerate CSRF token to prevent CSRF attacks
         $request->session()->regenerateToken();
+        
+        // Clear any intended URL to prevent conflicts on next login
+        $request->session()->forget('url.intended');
 
-     
+        // Redirect to home with success message
         return redirect('/')->with('success', 'You have been logged out successfully!');
     }
 

@@ -297,33 +297,42 @@ class ApplicationController extends Controller
         $application = ApplicationForm::findOrFail($id);
         $requirement = Requirement::where('user_id', $application->user_id)->first();
     
+        // Helper function to safely decode JSON or return array
+        $safeJsonDecode = function($data) {
+            if (is_array($data)) {
+                return $data;
+            }
+            if (is_string($data)) {
+                $decoded = json_decode($data, true);
+                return $decoded !== null ? $decoded : [];
+            }
+            return [];
+        };
      
-        $degree_programs = json_decode($application->degree_program, true) ?? [];
-        $school_addresses = json_decode($application->school_address, true) ?? [];
-        $inclusive_dates = json_decode($application->inclusive_dates, true) ?? [];
+        $degree_programs = $safeJsonDecode($application->degree_program);
+        $school_addresses = $safeJsonDecode($application->school_address);
+        $inclusive_dates = $safeJsonDecode($application->inclusive_dates);
     
-       
-        $training_programs = json_decode($application->training_program, true) ?? [];
-        $certificate_obtained = json_decode($application->certificate_obtained, true) ?? [];
-        $dates_attendance = json_decode($application->dates_attendance, true) ?? [];
+        $training_programs = $safeJsonDecode($application->training_program);
+        $certificate_obtained = $safeJsonDecode($application->certificate_obtained);
+        $dates_attendance = $safeJsonDecode($application->dates_attendance);
 
-    
-        $certification_examination = json_decode($application->certification_examination, true) ?? [];
-        $certifying_agency = json_decode($application->certifying_agency, true) ?? [];
-        $date_certified = json_decode($application->date_certified, true) ?? [];
-        $rating = json_decode($application->rating, true) ?? [];
+        $certification_examination = $safeJsonDecode($application->certification_examination);
+        $certifying_agency = $safeJsonDecode($application->certifying_agency);
+        $date_certified = $safeJsonDecode($application->date_certified);
+        $rating = $safeJsonDecode($application->rating);
 
-        $awards_conferred = json_decode($application->awards_conferred, true) ?? [];
-        $conferring_organizations = json_decode($application->conferring_organizations, true) ?? [];
-        $date_awarded = json_decode($application->date_awarded, true) ?? [];
+        $awards_conferred = $safeJsonDecode($application->awards_conferred);
+        $conferring_organizations = $safeJsonDecode($application->conferring_organizations);
+        $date_awarded = $safeJsonDecode($application->date_awarded);
 
-        $community_awards_conferred = json_decode($application->community_awards_conferred, true) ?? [];
-        $community_conferring_organizations = json_decode($application->community_conferring_organizations, true) ?? [];
-        $community_date_awarded = json_decode($application->community_date_awarded, true) ?? [];
+        $community_awards_conferred = $safeJsonDecode($application->community_awards_conferred);
+        $community_conferring_organizations = $safeJsonDecode($application->community_conferring_organizations);
+        $community_date_awarded = $safeJsonDecode($application->community_date_awarded);
 
-        $work_awards_conferred = json_decode($application->work_awards_conferred, true) ?? [];
-        $work_community_conferring_organizations = json_decode($application->work_community_conferring_organizations, true) ?? [];
-        $work_community_date_awarded = json_decode($application->work_community_date_awarded, true) ?? [];
+        $work_awards_conferred = $safeJsonDecode($application->work_awards_conferred);
+        $work_community_conferring_organizations = $safeJsonDecode($application->work_community_conferring_organizations);
+        $work_community_date_awarded = $safeJsonDecode($application->work_community_date_awarded);
         
             
         return view('application.view', compact(
@@ -355,30 +364,43 @@ class ApplicationController extends Controller
     public function show($id)
     {
         $application = ApplicationForm::findOrFail($id);
-        $degree_programs = json_decode($application->degree_program, true) ?? [];
-        $school_addresses = json_decode($application->school_address, true) ?? [];
-        $inclusive_dates = json_decode($application->inclusive_dates, true) ?? [];
+        
+        // Helper function to safely decode JSON or return array
+        $safeJsonDecode = function($data) {
+            if (is_array($data)) {
+                return $data;
+            }
+            if (is_string($data)) {
+                $decoded = json_decode($data, true);
+                return $decoded !== null ? $decoded : [];
+            }
+            return [];
+        };
+        
+        $degree_programs = $safeJsonDecode($application->degree_program);
+        $school_addresses = $safeJsonDecode($application->school_address);
+        $inclusive_dates = $safeJsonDecode($application->inclusive_dates);
 
-        $training_programs = json_decode($application->training_program, true) ?? [];
-        $certificate_obtained = json_decode($application->certificate_obtained, true) ?? [];
-        $dates_attendance = json_decode($application->dates_attendance, true) ?? [];
+        $training_programs = $safeJsonDecode($application->training_program);
+        $certificate_obtained = $safeJsonDecode($application->certificate_obtained);
+        $dates_attendance = $safeJsonDecode($application->dates_attendance);
 
-        $certification_examination = json_decode($application->certification_examination, true) ?? [];
-        $certifying_agency = json_decode($application->certifying_agency, true) ?? [];
-        $date_certified = json_decode($application->date_certified, true) ?? [];
-        $rating = json_decode($application->rating, true) ?? [];
+        $certification_examination = $safeJsonDecode($application->certification_examination);
+        $certifying_agency = $safeJsonDecode($application->certifying_agency);
+        $date_certified = $safeJsonDecode($application->date_certified);
+        $rating = $safeJsonDecode($application->rating);
 
-        $awards_conferred = json_decode($application->awards_conferred, true) ?? [];
-        $conferring_organizations = json_decode($application->conferring_organizations, true) ?? [];
-        $date_awarded = json_decode($application->date_awarded, true) ?? [];
+        $awards_conferred = $safeJsonDecode($application->awards_conferred);
+        $conferring_organizations = $safeJsonDecode($application->conferring_organizations);
+        $date_awarded = $safeJsonDecode($application->date_awarded);
 
-        $community_awards_conferred = json_decode($application->community_awards_conferred, true) ?? [];
-        $community_conferring_organizations = json_decode($application->community_conferring_organizations, true) ?? [];
-        $community_date_awarded = json_decode($application->community_date_awarded, true) ?? [];
+        $community_awards_conferred = $safeJsonDecode($application->community_awards_conferred);
+        $community_conferring_organizations = $safeJsonDecode($application->community_conferring_organizations);
+        $community_date_awarded = $safeJsonDecode($application->community_date_awarded);
 
-        $work_awards_conferred = json_decode($application->work_awards_conferred, true) ?? [];
-        $work_community_conferring_organizations = json_decode($application->work_community_conferring_organizations, true) ?? [];
-        $work_community_date_awarded = json_decode($application->work_community_date_awarded, true) ?? [];
+        $work_awards_conferred = $safeJsonDecode($application->work_awards_conferred);
+        $work_community_conferring_organizations = $safeJsonDecode($application->work_community_conferring_organizations);
+        $work_community_date_awarded = $safeJsonDecode($application->work_community_date_awarded);
         
     
         return view('application.view', compact(
@@ -408,31 +430,47 @@ class ApplicationController extends Controller
     {
         $application = ApplicationForm::findOrFail($id);
     
+        // Helper function to safely handle array/string data
+        $safeArrayExtract = function($data) {
+            if (is_array($data)) {
+                return $data;
+            }
+            if (is_string($data)) {
+                // Try JSON decode first
+                $decoded = json_decode($data, true);
+                if ($decoded !== null) {
+                    return $decoded;
+                }
+                // Fall back to explode for comma-separated strings
+                return array_filter(array_map('trim', explode(',', $data)));
+            }
+            return [];
+        };
         
-        $degree_programs = explode(',', $application->degree_program);
-        $school_addresses = explode(',', $application->school_address);
-        $inclusive_dates = explode(',', $application->inclusive_dates);
+        $degree_programs = $safeArrayExtract($application->degree_program);
+        $school_addresses = $safeArrayExtract($application->school_address);
+        $inclusive_dates = $safeArrayExtract($application->inclusive_dates);
 
-        $training_program = explode(',', $application->training_program);
-        $certificate_obtained = explode(',', $application->certificate_obtained);
-        $dates_attendance = explode(',', $application->dates_attendance);
+        $training_program = $safeArrayExtract($application->training_program);
+        $certificate_obtained = $safeArrayExtract($application->certificate_obtained);
+        $dates_attendance = $safeArrayExtract($application->dates_attendance);
 
-        $certification_examination = explode(',', $application->certification_examination);
-        $certifying_agency = explode(',', $application->certifying_agency);
-        $date_certified = explode(',', $application->date_certified);
-        $rating = explode(',', $application->rating);
+        $certification_examination = $safeArrayExtract($application->certification_examination);
+        $certifying_agency = $safeArrayExtract($application->certifying_agency);
+        $date_certified = $safeArrayExtract($application->date_certified);
+        $rating = $safeArrayExtract($application->rating);
 
-        $awards_conferred = explode(',', $application->awards_conferred);
-        $conferring_organizations = explode(',', $application->conferring_organizations);
-        $date_awarded = explode(',', $application->date_awarded);
+        $awards_conferred = $safeArrayExtract($application->awards_conferred);
+        $conferring_organizations = $safeArrayExtract($application->conferring_organizations);
+        $date_awarded = $safeArrayExtract($application->date_awarded);
 
-        $community_awards_conferred = explode(',', $application->community_awards_conferred);
-        $community_conferring_organizations = explode(',', $application->community_conferring_organizations);
-        $community_date_awarded = explode(',', $application->community_date_awarded);
+        $community_awards_conferred = $safeArrayExtract($application->community_awards_conferred);
+        $community_conferring_organizations = $safeArrayExtract($application->community_conferring_organizations);
+        $community_date_awarded = $safeArrayExtract($application->community_date_awarded);
 
-        $work_awards_conferred = explode(',', $application->work_awards_conferred);
-        $work_community_conferring_organizations = explode(',', $application->work_community_conferring_organizations);
-        $work_community_date_awarded = explode(',', $application->work_community_date_awarded);
+        $work_awards_conferred = $safeArrayExtract($application->work_awards_conferred);
+        $work_community_conferring_organizations = $safeArrayExtract($application->work_community_conferring_organizations);
+        $work_community_date_awarded = $safeArrayExtract($application->work_community_date_awarded);
         
         $requirement = Requirement::where('user_id', $application->user_id)->first();
         return view('application.edit', compact(
